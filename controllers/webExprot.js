@@ -6,7 +6,6 @@
 
 const UserController = require('./web/user.js');
 
-// module.exports = UserController
-exports = {
+module.exports = {
   UserController
 }

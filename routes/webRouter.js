@@ -4,7 +4,7 @@
  * @ Description: 前端的接口配置
  */
 
-const UserController = require('../controllers/webExprot.js');
+const { UserController } = require('../controllers/webExprot.js');
 const router = require('koa-router')();
 
 router.get('/api/user/login', UserController.login);

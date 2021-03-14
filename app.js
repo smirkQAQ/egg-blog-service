@@ -4,12 +4,14 @@
  * @Description: 
  */
 
-const Koa = require('koa')
-const app = new Koa()
-const json = require('koa-json')
-const onerror = require('koa-onerror')
-const bodyparser = require('koa-bodyparser')
-const logger = require('koa-logger')
+const Koa = require('koa');
+const app = new Koa();
+const json = require('koa-json');
+const onerror = require('koa-onerror');
+const bodyparser = require('koa-bodyparser');
+const logger = require('koa-logger');
+const db = require('./models/db');// 连接数据库
+
 
 // 路由导入
 const webRouter = require('./routes/webRouter');
@@ -20,10 +22,10 @@ const crmRouter = require('./routes/crmRouter');
 onerror(app)
 
 // middlewares 中间件
-app.use(bodyparser({
-  enableTypes:['json', 'form', 'text']
-}))
-app.use(json())
+// app.use(bodyparser({
+//   enableTypes:['json', 'form', 'text']
+// }))
+// app.use(json())
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
 
@@ -35,6 +37,8 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
+
+app.use(require('./middlewares/response'));
 // 启动路由
 app.use(webRouter.routes(), webRouter.allowedMethods())
 app.use(crmRouter.routes(), crmRouter.allowedMethods())

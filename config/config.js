@@ -9,7 +9,7 @@
 module.exports = {
   development: {
     mongo: {
-      uri: 'mongodb://localhost:27017/blog'
+      uri: 'mongodb://localhost:27017/test'
     },
    port: '3000',
   },
