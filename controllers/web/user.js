@@ -10,9 +10,9 @@ class UserController {
   // 注册
   static async registered(ctx) {
     const { name, displayName, email, password, apassword } = ctx.request.body;
-    if(!name || !password) {
-      return ctx.error({ msg: '用户名或密码不能为空!' });
-    }
+    // if(!name || !password) {
+    //   return ctx.error({ msg: '用户名或密码不能为空!' });
+    // }
     if(password != apassword) {
       return ctx.error({ msg: '两次输入的密码不一致!' });
     }
@@ -35,8 +35,11 @@ class UserController {
     }
     const data = await UserModel.findOne({ name, password: md5(password) }, { password: 0 });
     if(!data) return ctx.error({ msg: '用户名或密码错误!' });
-
     ctx.success({ msg: '登录成功', data });
+  }
+
+  static async test(ctx) {
+    const test = await UserModel.find({})
   }
 }
 

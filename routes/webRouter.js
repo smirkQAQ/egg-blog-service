@@ -10,7 +10,5 @@ const router = require('koa-router')();
 router.post('/api/user/login', UserController.login);
 router.post('/api/user/registered', UserController.registered);
 
-console.log(UserController.registered);
-
 
 module.exports = router;

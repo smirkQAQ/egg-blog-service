@@ -1,7 +1,7 @@
 /*
  * @Author: LC
  * @Date: 2021-03-14
- * @Description: 
+ * @Description: 入口文件
  */
 const Koa = require('koa');
 const app = new Koa();
@@ -10,13 +10,29 @@ const logger = require('koa-logger');
 require('./models/db');// 连接数据库
 const bodyParser = require('koa-bodyparser');
 const json = require('koa-json');
-
-
+const cors = require('koa2-cors');
 
 
 // 路由导入
 const webRouter = require('./routes/webRouter');
 const crmRouter = require('./routes/crmRouter');
+
+// 跨域配置
+app.use(cors({
+  origin: function (ctx) {
+     return "*"; // 允许来自所有域名请求
+     // return ctx.header.origin;// 当*无法使用时，使用这句,同样允许所有跨域
+     // return 'http://localhost:8080'; //单个跨域请求
+     // 允许多个跨域
+    //  var allowCors = ['http://localhost:8080',  'http://localhost:8081'];
+    //  return allowCors.indexOf(ctx.header.origin) > -1 ? ctx.header.origin : '';
+  },
+  exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+  maxAge: 5,
+  credentials: true,
+  allowMethods: ['GET', 'POST', 'DELETE'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+}))
 
 // error handler
 onerror(app)

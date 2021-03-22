@@ -13,12 +13,24 @@
  */
 
 module.exports = async (ctx, next) => {
-  ctx.error = ({ data, msg, status,error }) => {
-     ctx.status= status||400;
-     ctx.body = { code: -200, msg, data, error };
+  ctx.error = ({ data, msg, status, error }) => {
+    //  ctx.status= status || 400;
+    //  ctx.body = { status: -200, msg, data, error };
+    ctx.status= status || 400;
+    ctx.body = {
+      data: data || null,
+      msg,
+      code: -200,
+      error
+    }
   }
   ctx.success = ({ data, msg }) => {
-      ctx.body = { code: 200, msg, data };
+      // ctx.body = { status: 200, msg, data };
+      ctx.body = {
+        data,
+        msg,
+        code: 200
+      }
   }
   await next()
 }
