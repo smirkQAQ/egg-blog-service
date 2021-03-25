@@ -4,7 +4,7 @@
  * @ Description: 用户相关和接口逻辑
  */
 const md5 = require('md5');
-const UserModel = require('../../models/user');
+const UserModel = require('../../models/userModel');
 
 class UserController {
   // 注册
@@ -38,9 +38,6 @@ class UserController {
     ctx.success({ msg: '登录成功', data });
   }
 
-  static async test(ctx) {
-    const test = await UserModel.find({})
-  }
 }
 
 module.exports = UserController;

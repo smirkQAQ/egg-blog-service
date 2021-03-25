@@ -15,10 +15,13 @@ module.exports = async (ctx, next) => {
   try {
     await next();
   } catch (error) {
-    if(error.errorCode) {
-      logger.error(err.stack);
       ctx.body = {
-        msg: error.msg,
+        error: error,
+      };
+    if(error.errors) {
+      // logger.error(error.stack);
+      ctx.body = {
+        msg: error.message,
         error_code: error.errorCode,
         request: `${ctx.method} ${ctx.path}`
       };

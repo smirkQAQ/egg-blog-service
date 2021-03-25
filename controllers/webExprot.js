@@ -4,8 +4,11 @@
  * @ Description: 前端接口集中导出
  */
 
-const UserController = require('./web/user.js');
+const UserController = require('./web/user');
+const ArticleController = require('./web/article');
+
 
 module.exports = {
-  UserController
+  UserController,
+  ArticleController
 }

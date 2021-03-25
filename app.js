@@ -12,7 +12,6 @@ const bodyParser = require('koa-bodyparser');
 const json = require('koa-json');
 const cors = require('koa2-cors');
 
-
 // 路由导入
 const webRouter = require('./routes/webRouter');
 const crmRouter = require('./routes/crmRouter');
@@ -41,7 +40,6 @@ onerror(app)
 app.use(bodyParser());
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
-
 // logger
 app.use(async (ctx, next) => {
   const start = new Date()
@@ -49,7 +47,6 @@ app.use(async (ctx, next) => {
   const ms = new Date() - start
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
-
 app.use(require('./middlewares/response'));
 app.use(require('./middlewares/servererr'));
 // 启动路由
