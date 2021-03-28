@@ -6,9 +6,10 @@
 
 const UserController = require('./web/user');
 const ArticleController = require('./web/article');
-
+const IndexController = require('./web/index');
 
 module.exports = {
   UserController,
-  ArticleController
+  ArticleController,
+  IndexController
 }
