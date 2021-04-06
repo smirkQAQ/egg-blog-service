@@ -20,10 +20,10 @@ router.post('/api/article/createArticle', ArticleController.createArticle);
 router.get('/api/index/quireList', IndexController.qureryList);
 
 // test
-router.post('/api/test/upload', upload.alioss, async(ctx) => {
-  const { url, id } = ctx.upload; 
+router.post('/api/test/upload', upload.txcos, async(ctx) => {
+  const { url, key } = ctx.upload; 
   if(!url) return ctx.error({ msg:'上传失败!' });
-  return ctx.success({ msg:'上传成功!', data: { url,id } });
+  return ctx.success({ msg:'上传成功!', data: { url, key } });
 })
 
 

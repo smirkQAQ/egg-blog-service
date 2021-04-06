@@ -26,6 +26,7 @@ module.exports = async (ctx, next) => {
         request: `${ctx.method} ${ctx.path}`
       };
     } else {
+      logger.error(error.stack);
       //对于未知的异常，采用特别处理
       ctx.body = {
         msg: 'we made a mistake',
