@@ -13,6 +13,7 @@
  */
 
 module.exports = async (ctx, next) => {
+  // 挂载success、error方法
   ctx.error = ({ data, msg, status, error }) => {
     //  ctx.status= status || 400;
     //  ctx.body = { status: -200, msg, data, error };

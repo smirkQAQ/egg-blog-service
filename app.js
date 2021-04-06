@@ -8,9 +8,10 @@ const app = new Koa();
 const onerror = require('koa-onerror');
 const logger = require('koa-logger');
 require('./models/db');// 连接数据库
-const bodyParser = require('koa-bodyparser');
+// const bodyParser = require('koa-bodyparser');
 const json = require('koa-json');
 const cors = require('koa2-cors');
+const koaBody = require('koa-body')
 
 // 路由导入
 const webRouter = require('./routes/webRouter');
@@ -29,7 +30,7 @@ app.use(cors({
   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
   maxAge: 5,
   credentials: true,
-  allowMethods: ['GET', 'POST', 'DELETE'],
+  allowMethods: ['GET', 'POST', 'DELETE', 'PUT', 'OPTIONS'],
   allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
 }))
 
@@ -37,9 +38,23 @@ app.use(cors({
 onerror(app)
 
 // middlewares 中间件
-app.use(bodyParser());
+// app.use(bodyParser());
 app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
+
+// 文件
+app.use(koaBody({
+  multipart:true,
+  // encoding:'gzip',
+  formidable:{
+    maxFileSize: 10 * 1024 * 1024, // 修改文件大小限制，默认位2M
+    keepExtensions: true, // 带拓展名上传，否则上传的会是二进制文件而不是图片文件
+    onFileBegin(name, file) {
+      file.path = __dirname + '/public/upload/' + file.name; // 重命名上传文件
+    },
+    uploadDir: __dirname + '/public/upload/',
+  }
+}))
 // logger
 app.use(async (ctx, next) => {
   const start = new Date()

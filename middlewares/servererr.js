@@ -15,9 +15,9 @@ module.exports = async (ctx, next) => {
   try {
     await next();
   } catch (error) {
-      ctx.body = {
-        error: error,
-      };
+    ctx.body = {
+      error: error,
+    };
     if(error.errors) {
       // logger.error(error.stack);
       ctx.body = {

@@ -11,14 +11,21 @@ module.exports = {
     mongo: {
       uri: 'mongodb://localhost:27017/test'
     },
-   port: '3000',
+    port: '3000',
+    alioss: {  // 阿里云oss sdk配置
+      region: 'oss-cn-beijing',            
+      accessKeyId: 'LTAI5tPgfz8gVLqEk6hDSg4a',
+      accessKeySecret: 'FysDB4f2PkLjgptUoxzVzbeIpJ3uEw',
+      bucket: 'dengttest',
+      folder: 'images/'  // 上传到空间的images文件夹下，可自定义，文件夹需提前创建
+    }
   },
 
   production: {
     mongo: {
       uri: 'mongodb://localhost:27017/test'
     },
-   port: '8080',
+    port: '8080',
   },
 
 }
