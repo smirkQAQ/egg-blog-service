@@ -10,21 +10,11 @@ const UserModel = require('../../models/userModel');        // 用户
 const TagsModel = require('../../models/tagsModel');        // 类别
 
 class ArticleController {
-  // 发表文章
-  static async createArticle(ctx) {
-    const data = ctx.request.body;
-    if (!data) return ctx.error({ msg: '错误传参！' });
-    const isRepetition = await ArticleModel.findOne({ title: data.title });
-    if (isRepetition) return ctx.error({ msg: '标题重复' });
-    data.star = { user: [], num: 0 };
-    const resuft = await ArticleModel.create(data);
-    if(!resuft) return ctx.error({ msg: '文章创建失败!' });
-
-    return ctx.success({ msg:'发表成功!', data: resuft });
-  }
   // 评论
   static async createComment(ctx) {
-    
+    let user = {
+      
+    }
   }
 }
 

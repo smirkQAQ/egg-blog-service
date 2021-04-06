@@ -11,7 +11,7 @@ const UserSchema = new Schema({
   displayName: { type: String, required: true },        // 昵称
   password: { type: String, required: true },           // 密码
   email: { type: String, default: '' },                 // 邮箱
-  avatar: { type: String, default:'' },                 // 头像
+  avatar: { type: String, default: '' },                // 头像
   createdDate: { type: Date, default: Date.now },
   updatedDate: { type: Date, default: Date.now }
 });
