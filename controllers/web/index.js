@@ -15,7 +15,7 @@ class IndexController {
     pageSize?pageSize:20;
 
     const skip = (Number(pageIndex)-1)*Number(pageSize);
-    const totals = await ArticleModel.find({}).count();
+    const totals = await ArticleModel.countDocuments();
     const lists = await ArticleModel.find().sort({createdDate: '-1'}).skip(Number(skip)).limit(Number(pageSize))
                                    .populate('author', { name: 1, avatar: 1, nickname: 1 }).populate('comments');
     if(!lists) return ctx.error({ msg: '暂无数据!' });

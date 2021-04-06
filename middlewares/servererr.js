@@ -4,7 +4,7 @@
  * @ Description: 统一try catch处理中间件 用于捕获内部错误，输出日志信息
  */
 const tracer = require('tracer');
-const logger = tracer.colorConsole({
+const logger = tracer.colorConsole({// 无效 待解决
   level: 'error',
   format: '{{timestamp}} <{{title}}> {{file}}(#{{line}}): {{message}}',
   file: 'error.log',
