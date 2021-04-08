@@ -30,7 +30,7 @@ module.exports = {
 
   production: {
     mongo: {
-      uri: 'mongodb://localhost:27017/test'
+      uri: 'mongodb://localhost:27017/blog_pro'
     },
     port: '8080',
     alioss: {  // 阿里云oss sdk配置

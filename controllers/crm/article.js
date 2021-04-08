@@ -18,8 +18,10 @@ class ArticleController {
     if (isRepetition) return ctx.error({ msg: '标题重复' });
     data.star = { user: [], num: 0 };
     const resuft = await ArticleModel.create(data);
+    data.articleTags.forEach(item => {
+      TagsModel.create({aid: resuft._id, name: item})
+    })
     if(!resuft) return ctx.error({ msg: '文章创建失败!' });
-
     return ctx.success({ msg:'发表成功!', data: resuft });
   }
   // 上传封面图片

@@ -7,8 +7,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const tagsSchema = new Schema({
-  name: { type: String, default: "" },
-  group: { type: Number, default: 0 }
+  aid: { type: Schema.Types.ObjectId, ref: 'User' },
+  name: { type: String, default: "" },    // 内容
 })
 
 module.exports = mongoose.model('Tags', tagsSchema)

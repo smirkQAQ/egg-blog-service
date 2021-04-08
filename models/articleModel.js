@@ -7,8 +7,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ArticleSchema = new Schema({
+  // aid: { type : Number, index: { unique: true } },
   title: { type: String, required: true },                        // 标题
-  articleTags: { type: Schema.Types.ObjectId, required: true },   // 文章类别
+  articleTags: { type: Array, default: [] },                      // 标签
   articleType: { type: String, required: true },                  // 文章形式 连载、原创、转载三种
   oldUrl: { type: String, default: null },                        // 原文链接
   coverPhoto: { 
