@@ -10,6 +10,7 @@ const UserModel = require('../../models/userModel');        // 用户
 const TagsModel = require('../../models/tagsModel');        // 类别
 
 class ArticleController {
+  // 获取文章详情
   static async getArticleDetail(ctx) {
     let { id, pageSize, pageIndex } = ctx.query;
     const data = await ArticleModel
@@ -26,7 +27,7 @@ class ArticleController {
     const totals = await CommentModel.find({ articleId: id }).countDocuments();
     const comments = await CommentModel
                           .find({ articleId: id })
-                          .sort({createdDate: '-1'})
+                          .sort({ createdDate: '-1' })
                           .skip(Number(skip))
                           .limit(Number(pageSize));
     return ctx.success({ data:{ data, comments, totals, pageIndex } });

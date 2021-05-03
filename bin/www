@@ -18,11 +18,18 @@ const config = cfile[process.env.NODE_ENV];// 环境
  const port = normalizePort(config.port);
 // app.set('port', port);
 
+
+// 路径为证书放置的位置
+ 
+const options = {
+  key: fs.readFileSync('./httpskey/5581054_www.mzlc.fun.key'),
+  cert: fs.readFileSync('./httpskey/5581054_www.mzlc.fun.pem'),
+}
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app.callback());
+var server = http.createServer(options, app.callback());
 
 /**
  * Listen on provided port, on all network interfaces.
