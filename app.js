@@ -3,10 +3,10 @@
  * @Date: 2021-03-14
  * @Description: 入口文件
  */
-const sslify = require('koa-sslify').default
+// const sslify = require('koa-sslify').default
 const Koa = require('koa');
 const app = new Koa();
-app.use(sslify());
+// app.use(sslify());
 const onerror = require('koa-onerror');
 const logger = require('koa-logger');
 require('./models/db');// 连接数据库
