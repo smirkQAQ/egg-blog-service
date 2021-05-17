@@ -15,6 +15,6 @@ router.post('/api/user/registered', UserController.registered);                 
 router.get('/api/index/quireList', IndexController.qureryList);                       // 列表查询
 router.get('/api/index/qureryTags', IndexController.qureryTags);                      // 分类查询
 router.get('/api/index/getArticleDetail', ArticleController.getArticleDetail);                      // 文章详情
-
+ 
 
 module.exports = router;
