@@ -13,19 +13,23 @@ const logger = tracer.colorConsole({// 无效 待解决
 
 module.exports = async (ctx, next) => {
   try {
-    await next();
+    await next()
   } catch (error) {
-    ctx.body = {
-      error: error,
-    };
+    if (error.status === 401) {
+      ctx.status = 401;
+      ctx.body = '无权限!\n';
+    } else {
+      ctx.body = {
+        error: error,
+      };
+    }
     if(error.errors) {
-      // logger.error(error.stack);
       ctx.body = {
         msg: error.message,
         error_code: error.errorCode,
         request: `${ctx.method} ${ctx.path}`
       };
-    } else {
+    } else if(error.status !== 401) {
       logger.error(error.stack);
       //对于未知的异常，采用特别处理
       ctx.body = {

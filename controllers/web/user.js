@@ -14,6 +14,7 @@ const md5 = require('md5');
 //   updatedDate: { type: Date, default: Date.now }
 // }));
 const UserModel = require('../../models/userModel');
+const jwt = require("jsonwebtoken");
 
 class UserController {
   // 注册
@@ -29,7 +30,7 @@ class UserController {
     if(ishas){
       return ctx.error({ msg: '该用户已存在!' });
     }
-    const result = await UserModel.create({ name, displayName, email, password: md5(password) });
+    const result = await UserModel.create({ name, displayName, email, password });
     if(!result) {
       return ctx.error({ msg: '注册失败!' });
      }
@@ -42,8 +43,14 @@ class UserController {
     if(!name || !password) {
       return ctx.error({ msg: '获取用户失败!' });
     }
-    const data = await UserModel.findOne({ name, password: md5(password) }, { password: 0 });
+    let data = await UserModel.findOne({ name, password }, { password: 0 }).lean();
     if(!data) return ctx.error({ msg: '用户名或密码错误!' });
+    const token = jwt.sign(
+      { name: data.name },
+      "blog_token", 
+      { expiresIn: 60 * 60 } // 60 * 60 s
+    );
+    data.token = token
     ctx.success({ msg: '登录成功', data });
   }
 

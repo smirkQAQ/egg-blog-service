@@ -13,7 +13,9 @@ require('./models/db');// 连接数据库
 // const bodyParser = require('koa-bodyparser');
 const json = require('koa-json');
 const cors = require('koa2-cors');
-const koaBody = require('koa-body')
+const koaBody = require('koa-body');
+const koajwt = require('koa-jwt');
+
 
 // 路由导入
 const webRouter = require('./routes/webRouter');
@@ -66,6 +68,14 @@ app.use(async (ctx, next) => {
 })
 app.use(require('./middlewares/response'));
 app.use(require('./middlewares/servererr'));
+
+// 注意：放在路由前面
+app.use(koajwt({
+  secret: 'blog_token'
+}).unless({ // 配置白名单
+  path: [/\/api\/user\/registered/, /\/api\/user\/login/]
+}))
+
 // 启动路由
 app.use(webRouter.routes(), webRouter.allowedMethods())
 app.use(crmRouter.routes(), crmRouter.allowedMethods())
