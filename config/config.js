@@ -8,10 +8,19 @@
 
 module.exports = {
   development: {
-    mongo: {
-      uri: 'mongodb://localhost:27017/test'
-    },
     port: '3000',
+    secret: {
+      secretKey: 'blog9527',
+      expiresIn: 60 * 60 // 一小时失效
+    }, // jwt 密钥
+    mysql: {
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      port: '3306',
+      database: 'blog_test',
+      charset:'utf8mb4'   //字符集一定要写，否则表情包存储不了
+    },
     alioss: {  // 阿里云oss sdk配置
       region: 'oss-cn-beijing',            
       accessKeyId: 'LTAI5tPgfz8gVLqEk6hDSg4a',
@@ -29,10 +38,16 @@ module.exports = {
   },
 
   production: {
-    mongo: {
-      uri: 'mongodb://localhost:27017/blog_pro'
-    },
     port: '8080',
+    secret: 'blog9527', // jwt 密钥
+    mysql: {
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      port: '3306',
+      database: 'blog_pro',
+      charset:'utf8mb4'   //字符集一定要写，否则表情包存储不了
+    },
     alioss: {  // 阿里云oss sdk配置
       region: 'oss-cn-beijing',            
       accessKeyId: 'LTAI5tPgfz8gVLqEk6hDSg4a',
