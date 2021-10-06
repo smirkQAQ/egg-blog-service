@@ -55,10 +55,6 @@ class UploadController {
     ctx.upload = { url, filekey };  // 挂载在ctx, 传递给下个中间件
     await next(); 
   }
-
-  static test () {
-    fs.existsSync(file.path)
-  }
 }
 UploadController.alioss
 

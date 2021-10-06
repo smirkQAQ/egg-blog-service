@@ -1,41 +1,54 @@
 {
-  "name": "blog_server",
-  "version": "0.1.0",
+  "name": "blog-serve",
+  "version": "3.0.0",
+  "description": "",
   "private": true,
-  "scripts": {
-    "start": "cross-env NODE_ENV=production node bin/www",
-    "dev": "cross-env NODE_ENV=development ./node_modules/.bin/nodemon bin/www",
-    "pro": "cross-env NODE_ENV=production pm2 start pm2.conf.json"
+  "egg": {
+    "declarations": true
   },
   "dependencies": {
-    "basic-auth": "^2.0.1",
-    "co": "^4.6.0",
-    "cos-nodejs-sdk-v5": "^2.9.13",
-    "cross-env": "^7.0.3",
-    "debug": "^4.1.1",
-    "fs": "0.0.1-security",
-    "jsonwebtoken": "^8.5.1",
-    "koa": "^2.7.0",
-    "koa-body": "^4.2.0",
-    "koa-convert": "^1.2.0",
-    "koa-json": "^2.0.2",
-    "koa-logger": "^3.2.0",
-    "koa-onerror": "^4.1.0",
-    "koa-ratelimit": "^5.0.1",
-    "koa-router": "^7.4.0",
-    "koa-sslify": "^5.0.0",
-    "koa-static": "^5.0.0",
-    "koa-unless": "^1.0.7",
-    "koa2-cors": "^2.0.6",
-    "loadash": "^1.0.0",
-    "md5": "^2.3.0",
-    "moment": "^2.29.1",
+    "cos-nodejs-sdk-v5": "^2.10.4",
+    "egg": "^2.15.1",
+    "egg-cos": "^1.0.2",
+    "egg-scripts": "^2.11.0",
+    "egg-sequelize": "^6.0.0",
+    "egg-validate": "^2.0.2",
     "mysql2": "^2.3.0",
-    "sequelize": "^6.6.5",
-    "tracer": "^1.1.4",
-    "validator": "^13.6.0"
+    "stream-wormhole": "^1.1.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1"
+    "autod": "^3.0.1",
+    "autod-egg": "^1.1.0",
+    "egg-bin": "^4.16.4",
+    "egg-ci": "^1.11.0",
+    "egg-mock": "^3.21.0",
+    "eslint": "^5.13.0",
+    "eslint-config-egg": "^7.1.0",
+    "sequelize-cli": "^6.2.0"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "start": "egg-scripts start --daemon --title=egg-server-egg",
+    "stop": "egg-scripts stop --title=egg-server-egg",
+    "dev": "egg-bin dev",
+    "debug": "egg-bin debug",
+    "cov": "egg-bin cov",
+    "lint": "eslint .",
+    "autod": "autod"
+  },
+  "ci": {
+    "version": "10"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "MIT",
+  "main": ".autod.conf.js",
+  "directories": {
+    "test": "test"
   }
 }
