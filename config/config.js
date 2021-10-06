@@ -39,7 +39,10 @@ module.exports = {
 
   production: {
     port: '8080',
-    secret: 'blog9527', // jwt 密钥
+    secret: {
+      secretKey: 'blog9527',
+      expiresIn: 60 * 60 // 一小时失效
+    }, // jwt 密钥
     mysql: {
       host: 'localhost',
       user: 'root',
