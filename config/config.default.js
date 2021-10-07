@@ -34,6 +34,12 @@ module.exports = appInfo => {
     }
   };
 
+  // 校验配置
+  config.validate = {
+    convert: true,  // 对参数可以使用convertType规则进行类型转换
+    // validateRoot: false,
+  };
+
   // 跨域配置
   config.cors = {
     origin:'*',

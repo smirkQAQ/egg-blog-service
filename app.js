@@ -1,5 +1,7 @@
 'use strict';
 
+const path = require('path');
+
 class AppBootHook {
   constructor(app) {
     this.app = app;
@@ -29,6 +31,9 @@ class AppBootHook {
     // this.app.loader.loadToContext(path.join(__dirname, 'app/tasks'), 'tasks', {
     //   fieldClass: 'tasksClasses',
     // });
+    // 加载所有的校验规则
+    const directory = path.join(this.app.config.baseDir, 'app/validate');
+    this.app.loader.loadToApp(directory, 'validate');
   }
 
   async willReady() {

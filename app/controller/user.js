@@ -5,7 +5,10 @@ const Controller = require('egg').Controller;
 class UserController extends Controller {
   async index() {
     const { ctx } = this;
-    ctx.body = {};
+    ctx.validate({
+      test: { type: 'string?', required: true },
+    });
+    ctx.body = ctx.params;
   }
 }
 

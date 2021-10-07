@@ -20,7 +20,7 @@ module.exports = () => {
         error,
       };
       if (status === 422) {
-        ctx.body.detail = err.errors;
+        ctx.body.data = err.errors;
       }
       ctx.status = status;
     }

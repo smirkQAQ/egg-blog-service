@@ -9,7 +9,6 @@ module.exports = () => {
     ctx.params = {
       ...ctx.query,
       ...ctx.request.body,
-      ...ctx.request.files[0],
     };
     await next();
   };

@@ -2,11 +2,11 @@
 
 const Controller = require('egg').Controller;
 
-class uploadController extends Controller {
+class UploadController extends Controller {
   async upload() {
     const { ctx } = this;
-    // const { field, filename, filepath } = ctx.params
-    const { statusCode, Location, RequestId } = await ctx.service.upload.upload(ctx.params);
+    // const { field, filename, filepath } = ctx.request.files[0]
+    const { statusCode, Location, RequestId } = await ctx.service.upload.upload(ctx.request.files[0]);
 
     ctx.body = {
       code: statusCode,
@@ -19,4 +19,4 @@ class uploadController extends Controller {
   }
 }
 
-module.exports = uploadController;
+module.exports = UploadController;
