@@ -1,14 +1,16 @@
+'use strict';
+
 /**
  * 获取请求参数中间件
  * 可以使用ctx.params获取get或post请求参数
  */
-module.exports = options => {
+module.exports = () => {
   return async function params(ctx, next) {
     ctx.params = {
       ...ctx.query,
       ...ctx.request.body,
-      ...ctx.request.files[0]
-    }
+      ...ctx.request.files[0],
+    };
     await next();
   };
 };

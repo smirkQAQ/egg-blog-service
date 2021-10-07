@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const Service = require('egg').Service;
 const COS = require('cos-nodejs-sdk-v5');
@@ -8,23 +8,23 @@ const fs = require('fs');
 class UploadService extends Service {
   async upload({ filename, filepath }) {
     const cos = new COS(this.config.txcos);
-    const { Region, SecretId, SecretKey, Bucket, folder } = this.config.txcos
-    const stream = fs.createReadStream(filepath)
+    const { Region, Bucket, folder } = this.config.txcos;
+    const stream = fs.createReadStream(filepath);
     return new Promise((resolve, reject) => {
       cos.putObject({
-        Bucket: Bucket, /* Bucket,名称 必须 */
-        Region: Region,    /* 所属地域 必须 */
-        Key: folder + filename,            /* 必须 */
+        Bucket, /* Bucket,名称 必须 */
+        Region, /* 所属地域 必须 */
+        Key: folder + filename, /* 必须 */
         Body: stream, // 上传文件对象
       }, async function(err, data) {
-        if(err) {
+        if (err) {
           reject(err);
-          await sendToWormhole(filepath)
+          await sendToWormhole(filepath);
           return;
         }
         resolve(data);
       });
-    })
+    });
   }
 }
 

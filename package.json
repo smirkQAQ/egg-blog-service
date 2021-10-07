@@ -22,8 +22,8 @@
     "egg-bin": "^4.16.4",
     "egg-ci": "^1.11.0",
     "egg-mock": "^3.21.0",
-    "eslint": "^5.13.0",
-    "eslint-config-egg": "^7.1.0",
+    "eslint": "^5.16.0",
+    "eslint-config-egg": "^7.5.1",
     "sequelize-cli": "^6.2.0"
   },
   "engines": {
