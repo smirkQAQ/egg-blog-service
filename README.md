@@ -1,6 +1,6 @@
 ## 主要技术栈 
 ```
-nodejs, koa2, mongoose, es6, async/await
+nodejs, koa2, mysql
 ```
 ### 启动
 ```
@@ -31,31 +31,12 @@ npm run start
       
 * schema/数据库 :  models/*      
   
-* 接口逻辑层 :  controllers/*     
+* 控制器 :  controllers/*     
+
+* 公共中间件 :  middlewares/*
+* 
+* 接口逻辑 :  service/*
+
+##  2.0 重构同一响应处理，持久层mongodb mongoose改用mysql sequelize
+
   
-* 公共中间件 :  middlewares/*  
-
-##   统一处理响应请求 (成功/失败) 
-
-  middlewares/response.js
-
-  ```
-# 返回错误
-  调用 ctx.error({
-        msg: '错误提示',
-        status: '默认为400',
-        data: '返回的数据',
-        error: '具体错误信息'
-       })      
-     
-# 返回成功    
-  调用 ctx.success({
-        msg: '成功提示',
-        data: '数据',
-      })
-
-  ```
-
-##   统一错误处理
-
-错误分两种，一种是api的错误，另一种则是内部错误 ，api错误需要手动处理， 内部错误则使用try/catch捕获

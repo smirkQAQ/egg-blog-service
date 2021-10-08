@@ -15,7 +15,7 @@ class UploadController {
     if(!file){
       return ctx.error({ msg: '上传失败!' });
     }
-    const isexit = await fs.existsSync(file.path);
+    const isexit = fs.existsSync(file.path);
     if(!isexit) return ctx.error({ msg: '上传文件时发生错误!' });
     // 同步腾讯云cos
     let filekey = file.name;
@@ -39,7 +39,7 @@ class UploadController {
       return ctx.error({ msg: '上传失败!' });
     }
     // const { id } = fields;
-    const isexit = await fs.existsSync(file.path);
+    const isexit = fs.existsSync(file.path);
     if(!isexit) return ctx.error({ msg: '上传文件时发生错误!' });
     // 同步阿里oss
     // let filekey = id + files.file.name;
@@ -55,6 +55,11 @@ class UploadController {
     ctx.upload = { url, filekey };  // 挂载在ctx, 传递给下个中间件
     await next(); 
   }
+
+  static test () {
+    fs.existsSync(file.path)
+  }
 }
+UploadController.alioss
 
 module.exports = UploadController
