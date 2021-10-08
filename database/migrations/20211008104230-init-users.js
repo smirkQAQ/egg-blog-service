@@ -14,7 +14,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         autoIncrement: true,
       },
-      username: {
+      user_name: {
         type: Sequelize.STRING(50),
         defaultValue: null,
       },
@@ -29,7 +29,7 @@ module.exports = {
           isEmail: true,
         },
       },
-      nickname: {
+      nick_name: {
         type: Sequelize.STRING(50),
         defaultValue: null,
       },
@@ -53,11 +53,6 @@ module.exports = {
         defaultValue: null,
         comment: 'gitee地址',
       },
-      weibo: {
-        type: Sequelize.STRING(300),
-        defaultValue: null,
-        comment: '微博',
-      },
       total_view: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
@@ -73,6 +68,7 @@ module.exports = {
       profession: {
         type: Sequelize.STRING(100),
         defaultValue: null,
+        comment: '职业',
       },
       summary: {
         type: Sequelize.TEXT,

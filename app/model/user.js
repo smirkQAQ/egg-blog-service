@@ -5,7 +5,7 @@ module.exports = app => {
 
   const User = app.model.define('users', {
     id: { type: INTEGER, primaryKey: true, utoIncrement: true },
-    username: {
+    user_name: {
       type: STRING(50),
       defaultValue: null,
     },
@@ -17,7 +17,7 @@ module.exports = app => {
       type: STRING(100),
       defaultValue: null,
     },
-    nickname: {
+    nick_name: {
       type: STRING(300),
       defaultValue: null,
     },
@@ -39,11 +39,6 @@ module.exports = app => {
       type: STRING(300),
       defaultValue: null,
       comment: 'gitee地址',
-    },
-    weibo: {
-      type: STRING(300),
-      defaultValue: null,
-      comment: '微博',
     },
     total_view: {
       type: INTEGER,

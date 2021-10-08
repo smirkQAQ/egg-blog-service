@@ -7,14 +7,24 @@ class UserController extends Controller {
     // const { ctx } = this;
   }
   async register() {
-    const { ctx, app } = this;
-    await app.redis.set('corpiduserid', 'token asdhaskdhaskjdh', 'ex', 7200); // 保存到redis
-    ctx.body = {
-      code: 200,
-      data: {
-        email: ctx.request.body.email,
-      },
-    };
+    const { ctx } = this;
+    ctx.validate({
+      email: 'email',
+      password: { type: 'password' },
+    });
+    const findUserResult = await ctx.service.user.findUser(ctx.request.body);
+    if (findUserResult) {
+      ctx.body = {
+        code: 200,
+        data: '邮箱已被注册',
+      };
+    } else {
+      await ctx.service.user.register(ctx.request.body);
+      ctx.body = {
+        code: 200,
+        data: '注册成功',
+      };
+    }
   }
 }
 
