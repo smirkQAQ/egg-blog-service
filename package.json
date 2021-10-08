@@ -8,11 +8,14 @@
   },
   "dependencies": {
     "cos-nodejs-sdk-v5": "^2.10.4",
+    "crypto": "^1.0.1",
     "egg": "^2.15.1",
     "egg-cos": "^1.0.2",
+    "egg-redis": "^2.4.0",
     "egg-scripts": "^2.11.0",
     "egg-sequelize": "^6.0.0",
     "egg-validate": "^2.0.2",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.0",
     "stream-wormhole": "^1.1.0"
   },

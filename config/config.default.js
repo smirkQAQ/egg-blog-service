@@ -16,7 +16,13 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1632363205996_4896';
 
   // add your middleware config here
-  config.middleware = ['errorHandler', 'params'];
+  config.middleware = ['errorHandler', 'auth'];
+
+  // 权限校验白名单
+  config.auth = {
+    enable: true,
+    ignore: [ '^/index', '/public/', '/api/register' ], // 哪些请求不需要认证
+  }
 
   // 安全策略配置
   config.security = {
@@ -55,6 +61,16 @@ module.exports = appInfo => {
     host: '127.0.0.1',
     port: 3306,
     database: 'blog_test',
+  };
+
+  // reaid配置
+  config.redis = {
+    client: {
+      port: 6379,          // Redis port
+      host: '127.0.0.1',   // Redis host
+      password: 'auth',
+      db: 0,
+    },
   };
 
   // 文件读取方式：file/stream, 白名单默认只允许jpg、gif图片格式
