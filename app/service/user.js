@@ -3,10 +3,10 @@
 const Service = require('egg').Service;
 
 class UserService extends Service {
-  async login({ usersData }) {
+  async generateToken(data) {
     const { ctx, app } = this;
-    const token = ctx.helper.getToken({ corpid: usersData.corpid, userid: usersData.userid }); // token生成
-    await app.redis.get('loginToken').set(usersData.corpid + usersData.userid, token, 'ex', 7200); // 保存到redis
+    const token = ctx.helper.getToken(data); // token生成
+    await app.redis.set(data.uid + data.email, token, 'ex', 7200); // 保存到redis
     return token;
   }
 
@@ -18,12 +18,44 @@ class UserService extends Service {
     });
   }
 
-  async findUser({ email }) {
-    // const { ctx, app } = this;
+  async findUser({ email, id, status = 1 }) {
     const { ctx } = this;
-
+    const query = { status };
+    email && (query.email = email);
+    id && (query.id = id);
     return ctx.model.User.findOne({
-      where: { email, status: 1 },
+      where: query,
+    });
+  }
+
+  async getUsers({ page, pageSize }) {
+    const where = { status: 1 };
+    const { count, rows } = await this.ctx.model.User.findAndCountAll({
+      where,
+      offset: (page - 1) * pageSize,
+      limit: pageSize,
+      order: [[ 'createdAt', 'DESC' ]],
+    });
+    return { count, users: rows };
+  }
+
+  async queryUserById(id) {
+    return this.ctx.model.User.findOne({
+      where: { id, status: 1 },
+      attributes: [
+        'id',
+        'userName',
+        'email',
+        'nickName',
+        'avatar',
+        'website',
+        'github',
+        'github',
+        'gitee',
+        'profession',
+        'summary',
+        'accountType',
+      ],
     });
   }
 }
