@@ -5,9 +5,7 @@ const Controller = require('egg').Controller;
 class UploadController extends Controller {
   async upload() {
     const { ctx } = this;
-    // const { field, filename, filepath } = ctx.request.files[0]
     const { statusCode, Location, RequestId } = await ctx.service.upload.upload(ctx.request.files[0]);
-
     ctx.body = {
       code: statusCode,
       msg: '上传成功！',

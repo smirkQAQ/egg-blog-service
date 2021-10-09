@@ -7,7 +7,7 @@ module.exports = {
   // token颁发 expires：到期时间 不传默认一天
   getToken(data, expires = 7200) {
     return jwt.sign({
-      data,
+      ...data,
       exp: Math.floor(Date.now() / 1000) + expires,
     }, '9527');
   },

@@ -4,10 +4,11 @@ module.exports = app => {
   const { STRING, INTEGER, TEXT, ENUM } = app.Sequelize;
 
   const User = app.model.define('users', {
-    id: { type: INTEGER, primaryKey: true, utoIncrement: true },
-    user_name: {
+    id: { type: INTEGER, primaryKey: true, utoIncrement: true }, // key 自增量
+    userName: {
       type: STRING(50),
       defaultValue: null,
+      field: 'user_name',
     },
     password: {
       type: STRING(200),
@@ -17,9 +18,10 @@ module.exports = app => {
       type: STRING(100),
       defaultValue: null,
     },
-    nick_name: {
+    nickName: {
       type: STRING(300),
       defaultValue: null,
+      field: 'nick_name',
     },
     avatar: {
       type: STRING(300),
@@ -40,17 +42,20 @@ module.exports = app => {
       defaultValue: null,
       comment: 'gitee地址',
     },
-    total_view: {
+    totalView: {
       type: INTEGER,
       defaultValue: 0,
+      field: 'total_view',
     },
-    total_like: {
+    totalLike: {
       type: INTEGER,
       defaultValue: 0,
+      field: 'total_like',
     },
-    total_comment: {
+    totalComment: {
       type: INTEGER,
       defaultValue: 0,
+      field: 'total_comment',
     },
     profession: {
       type: STRING(100),
@@ -66,9 +71,10 @@ module.exports = app => {
       defaultValue: 1,
       comment: '1->正常,2->删除',
     },
-    account_type: {
+    accountType: {
       type: ENUM('ADMIN', 'GENERAL', 'TOURIST'),
       defaultValue: 'GENERAL',
+      field: 'account_type',
     },
   });
   User.associate = () => {
