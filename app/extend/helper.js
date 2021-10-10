@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 
 module.exports = {
-  // token颁发 expires：到期时间 不传默认一天
+  // token颁发 expires：ms, 到期时间 不传默认一天
   getToken(data, expires = 7200) {
     return jwt.sign({
       ...data,
@@ -21,5 +21,13 @@ module.exports = {
   cryptPwd(password) {
     const md5 = crypto.createHash('md5');
     return md5.update(password).digest('hex');
+  },
+  // 生成6位随机数
+  randomFns() {
+    let code = '';
+    for (let i = 0; i < 6; i++) {
+      code += parseInt(Math.random() * 10);
+    }
+    return code;
   },
 };

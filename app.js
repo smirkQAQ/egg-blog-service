@@ -1,6 +1,10 @@
 'use strict';
 
 const path = require('path');
+const COS = require('cos-nodejs-sdk-v5');
+const nodemailer = require('nodemailer');
+const smtpTransport = require('nodemailer-smtp-transport');
+
 
 class AppBootHook {
   constructor(app) {
@@ -42,6 +46,11 @@ class AppBootHook {
 
     // 例如：从数据库加载数据到内存缓存
     // this.app.cacheData = await this.app.model.query(QUERY_CACHE_SQL);
+
+    // 挂载cos到app实例
+    this.app.cos = new COS(this.app.config.txcos);
+    // 挂载发送邮箱插件
+    this.app.nodemailer = nodemailer.createTransport(smtpTransport(this.app.config.nodemailer));
   }
 
   async didReady() {

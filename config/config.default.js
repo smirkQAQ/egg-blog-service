@@ -109,6 +109,17 @@ module.exports = appInfo => {
     folder: 'images/'
   }
 
+  // 短信验证
+  config.nodemailer = {
+    host: 'smtp.163.com', // 服务 由于我用的163邮箱
+    port: 465, // smtp端口 默认无需改动
+    secure: true,
+    auth: {
+      user: 'wengyapai19870315@163.com', // 用户名
+      pass: 'FMCGZXZWOIMWEKKZ' // SMTP授权码
+    }
+  }
+
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',

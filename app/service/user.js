@@ -54,9 +54,13 @@ class UserService extends Service {
         'gitee',
         'profession',
         'summary',
-        'accountType',
+        // 'accountType',
       ],
     });
+  }
+
+  async updateAccount(params, id) {
+    return this.ctx.model.User.update(params, { where: { id } });
   }
 }
 

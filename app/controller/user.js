@@ -1,6 +1,7 @@
 'use strict';
 
 const Controller = require('egg').Controller;
+const { Success } = require('../lib/response_status');
 
 class UserController extends Controller {
   async login() {
@@ -12,44 +13,21 @@ class UserController extends Controller {
     const { password } = ctx.request.body;
     const user = await ctx.service.user.findUser(ctx.request.body);
     if (!user) {
-      ctx.body = {
-        code: 400,
-        msg: '该用户不存在或者已经被删除',
-      };
+      ctx.body = Success(null, '该用户不存在或者已经被删除', 400);
       return;
     } else if (ctx.helper.cryptPwd(password) !== user.password) {
-      ctx.body = {
-        code: 400,
-        msg: '密码不正确，请重新输入',
-      };
+      ctx.body = Success(null, '密码不正确,请重新输入', 400);
       return;
     }
     user.dataValues.token = await ctx.service.user.generateToken({ uid: user.id, email: user.email, type: user.account_type });
-    ctx.body = {
-      code: 200,
-      data: user,
-    };
+    ctx.body = Success(user);
   }
 
   async logout() {
     const { ctx, app } = this;
-    ctx.validate({
-      id: 'string',
-    }, ctx.query);
-    const { id } = ctx.query;
-    const userResult = await ctx.service.user.findUser({ id: ctx.helper.toInt(id) });
-    if (!userResult) {
-      ctx.body = {
-        code: 500,
-        errMsg: 'error',
-      };
-      return;
-    }
-    await app.redis.del(id + userResult.email);
-    ctx.body = {
-      code: 200,
-      msg: '已退出登陆',
-    };
+    const { uid, email } = ctx.locals;
+    await app.redis.del(uid + email);
+    ctx.body = Success(null, '已退出登陆');
   }
 
   async register() {
@@ -60,18 +38,10 @@ class UserController extends Controller {
     });
     const findUserResult = await ctx.service.user.findUser(ctx.request.body);
     if (findUserResult) {
-      ctx.body = {
-        code: 200,
-        msg: '邮箱已被注册',
-        // data: null,
-      };
+      ctx.body = Success(null, '邮箱已被注册', 400);
     } else {
       await ctx.service.user.register(ctx.request.body);
-      ctx.body = {
-        code: 200,
-        msg: '注册成功',
-        // data: null,
-      };
+      ctx.body = Success(null, '注册成功');
     }
   }
 
@@ -97,24 +67,43 @@ class UserController extends Controller {
     const { uid, exp } = ctx.locals;
     const user = await ctx.service.user.queryUserById(uid);
     user.dataValues.exp = exp;
-    ctx.body = {
-      code: 200,
-      msg: 'Success',
-      data: user,
-    };
+    ctx.body = Success(user);
   }
 
   async updateAccount() {
     const { ctx } = this;
+    const { uid } = ctx.locals;
     ctx.validate({
-      email: { type: 'email', required: false },
-      nickname: { type: 'string', allowEmpty: true, required: false },
+      // email: { type: 'email', required: true },
+      nickName: { type: 'string', allowEmpty: true, required: false },
       profession: { type: 'string', allowEmpty: true, required: false },
       summary: { type: 'string', allowEmpty: true, required: false },
       website: { type: 'string', allowEmpty: true, required: false },
       github: { type: 'string', allowEmpty: true, required: false },
       gitee: { type: 'string', allowEmpty: true, required: false },
     });
+    await ctx.service.user.updateAccount(ctx.request.body, uid);
+    const user = await ctx.service.user.queryUserById(uid);
+
+    ctx.body = Success(user);
+  }
+
+  async sendMailCode() {
+    const { ctx, app, config } = this;
+    const data = await app.nodemailer.sendMail({
+      from: config.nodemailer.auth.user, // 发送者邮箱地址
+      to: '645164947@qq.com', // 接收这邮箱地址
+      subject: '验证你的电子邮件', // 邮件主题
+      html: `
+      <p>你好！</p>
+      <p>您正在注册账号</p>
+      <p>你的验证码是：<strong style="color: #ff4e2a;">${ctx.helper.randomFns()}</strong></p>
+      <p>***该验证码5分钟内有效***</p>`, // html模板
+    });
+    if (data) {
+      console.log(data);
+      ctx.body = data;
+    }
   }
 }
 

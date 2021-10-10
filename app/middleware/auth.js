@@ -7,7 +7,6 @@ function verifyToken(token) {
   let res = '';
   try {
     const result = jwt.verify(token, '9527') || {};
-    console.log(result);
     const { exp } = result,
       current = Math.floor(Date.now() / 1000);
     if (current <= exp) res = result || {};
@@ -37,13 +36,13 @@ module.exports = (options, app) => {
           ctx.locals.exp = exp;
           await next();
         } else {
-          ctx.body = { code: 401, msg: '您的账号已在其他地方登录' };
+          ctx.body = { code: 301, msg: '您的账号已在其他地方登录' };
         }
       } else {
         ctx.body = { code: 401, msg: 'token已过期' };
       }
     } else {
-      ctx.body = { code: 401, msg: '请登陆后再进行操作' };
+      ctx.body = { code: 403, msg: '请登陆后再进行操作' };
     }
   };
 };
