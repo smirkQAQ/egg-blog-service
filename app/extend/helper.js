@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 
 module.exports = {
-  // token颁发 expires：ms, 到期时间 不传默认一天
+  // token颁发 expires：s, 到期时间 不传默认一天
   getToken(data, expires = 7200) {
     return jwt.sign({
       ...data,
