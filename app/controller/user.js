@@ -31,17 +31,24 @@ class UserController extends Controller {
   }
 
   async register() {
-    const { ctx } = this;
+    const { ctx, app } = this;
     ctx.validate({
       email: 'email',
       password: { type: 'password' },
+      code: { type: 'int' },
     });
-    const findUserResult = await ctx.service.user.findUser(ctx.request.body);
-    if (findUserResult) {
-      ctx.body = Success(null, '邮箱已被注册', 400);
+    const { code } = ctx.request.body;
+    const redisCode = await app.redis.get('sendValidateCode' + code);
+    if (redisCode === code) {
+      const findUserResult = await ctx.service.user.findUser(ctx.request.body);
+      if (findUserResult) {
+        ctx.body = Success(null, '邮箱已被注册', 400);
+      } else {
+        await ctx.service.user.register(ctx.request.body);
+        ctx.body = Success(null, '注册成功');
+      }
     } else {
-      await ctx.service.user.register(ctx.request.body);
-      ctx.body = Success(null, '注册成功');
+      ctx.body = Success(null, '校验错误', 400);
     }
   }
 
@@ -90,14 +97,20 @@ class UserController extends Controller {
 
   async sendMailCode() {
     const { ctx, app, config } = this;
+    ctx.validate({
+      email: 'email',
+    }, ctx.query);
+    const validateCode = ctx.helper.randomFns();
+    await app.redis.set('sendValidateCode' + ctx.query.email, validateCode, 'ex', 300); // 保存到redis
+
     const data = await app.nodemailer.sendMail({
       from: config.nodemailer.auth.user, // 发送者邮箱地址
-      to: '645164947@qq.com', // 接收这邮箱地址
+      to: ctx.query.email, // 接收这邮箱地址
       subject: '验证你的电子邮件', // 邮件主题
       html: `
       <p>你好！</p>
-      <p>您正在注册账号</p>
-      <p>你的验证码是：<strong style="color: #ff4e2a;">${ctx.helper.randomFns()}</strong></p>
+      <p>您正在注册p***hub账号</p>
+      <p>你的验证码是：<strong style="color: #ff4e2a;">${validateCode}</strong></p>
       <p>***该验证码5分钟内有效***</p>`, // html模板
     });
     if (data) {
