@@ -102,21 +102,39 @@ class UserController extends Controller {
     }, ctx.query);
     const validateCode = ctx.helper.randomFns();
     await app.redis.set('sendValidateCode' + ctx.query.email, validateCode, 'ex', 300); // 保存到redis
-
     const data = await app.nodemailer.sendMail({
       from: config.nodemailer.auth.user, // 发送者邮箱地址
       to: ctx.query.email, // 接收这邮箱地址
-      subject: '验证你的电子邮件', // 邮件主题
-      html: `
-      <p>你好！</p>
-      <p>您正在注册p***hub账号</p>
-      <p>你的验证码是：<strong style="color: #ff4e2a;">${validateCode}</strong></p>
-      <p>***该验证码5分钟内有效***</p>`, // html模板
+      subject: '你正在注册瞭望灯塔账号', // 邮件主题
+      html: `<div style="width: 690px;
+      overflow: hidden;
+      padding: 30px;
+      background: #fcfbfb;
+      border: 1px solid #eaeaea;">
+      <img width="150px" src="https://dtcos-1258203853.cos.ap-shenzhen-fsi.myqcloud.com/images/default_bg.jpg">
+      <h3>Hi</h3>
+      <span style="color: rgb(0, 0, 0); font-size: 15px;"> </span>
+      <p>
+        <span style="color: rgb(0, 0, 0); font-size: 15px;">您正在 注册账号，验证码为：</span>
+        <span style="color: rgb(0, 0, 0); font-size: 15px;">
+          <strong><span style="color: rgb(78, 164, 220); font-size: 15px;">${validateCode}</span></strong>
+          <span style="font-size: 15px;">。</span>
+        </span>
+      </p>
+      <span style="color: rgb(0, 0, 0); font-size: 15px;"> </span>
+      <p><span style="color: rgb(0, 0, 0); font-size: 15px;">请在5分钟内完成验证。</span></p>
+      <div style="margin-top: 50px;">
+        <span style="color: rgb(0, 0, 0); font-size: 15px;"> </span>
+        <p><span style="color: rgb(0, 0, 0); font-size: 15px;">mzlc.fun</span></p>
+        <span style="color: rgb(0, 0, 0);"> </span>
+        <h5 style="border-top: 1px solid #666;color: #777;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      padding-top: 5px;"><span style="color: rgb(119, 119, 119); font-size: 13px;">此为系统邮件，请勿回复。</span></h5>
+      </div>
+    </div>`, // html模板
     });
-    if (data) {
-      console.log(data);
-      ctx.body = data;
-    }
+    data && (ctx.body = Success());
   }
 }
 

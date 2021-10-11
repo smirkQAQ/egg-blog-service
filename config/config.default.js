@@ -111,16 +111,20 @@ module.exports = appInfo => {
 
   // 短信验证
   config.nodemailer = {
-    host: 'smtp.qq.com', // 服务 网易163邮箱 smtp.163.com
-    port: 587, // smtp端口
+    service: 'gmail',
+    // host: 'smtp.qq.com', // 服务 网易163邮箱 smtp.163.com google: smtp.gmail.com
+    // host: 'smtp.163.com',
+    host: 'smtp.gmail.com',
+    port: 465, // smtp端口 465
     secure: true,
     auth: {
-      user: '645164947@qq.com', // 用户名
-      pass: 'tgvjbhykfacrbech' // SMTP授权码
+      // user: '645164947@qq.com', // 用户名
+      // pass: 'tgvjbhykfacrbech' // SMTP授权码
       // user: 'wengyapai19870315@163.com', // 用户名
       // pass: 'FMCGZXZWOIMWEKKZ' // SMTP授权码
+      user: 'sunlincong20@gmail.com', // 用户名
+      pass: 'mzoddwzfydhplaib' // SMTP授权码
     }
-
   }
 
   // add your user config here
