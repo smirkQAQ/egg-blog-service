@@ -32,6 +32,10 @@ module.exports = {
         defaultValue: null,
         field: 'sub_scribe',
       },
+      cover: {
+        type: Sequelize.STRING(300),
+        defaultValue: null,
+      },
       content: {
         type: Sequelize.TEXT,
         defaultValue: null,

@@ -83,7 +83,7 @@ module.exports = app => {
     },
   });
   User.associate = () => {
-
+    app.model.User.hasMany(app.model.Article, { foreignKey: 'uid' });
   };
   return User;
 };

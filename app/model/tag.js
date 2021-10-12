@@ -9,7 +9,7 @@
 module.exports = app => {
   const { STRING, INTEGER } = app.Sequelize;
 
-  const Tag = app.model.define('Tag', {
+  const Tag = app.model.define('tags', {
     id: {
       primaryKey: true,
       type: INTEGER,
