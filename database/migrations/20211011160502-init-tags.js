@@ -14,10 +14,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         autoIncrement: true,
       },
-      name_str: {
-        type: Sequelize.STRING(50),
-        defaultValue: null,
-      },
       name: {
         type: Sequelize.STRING(50),
         defaultValue: null,

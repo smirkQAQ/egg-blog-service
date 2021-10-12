@@ -19,11 +19,6 @@ module.exports = app => {
       type: STRING(50),
       defaultValue: null,
     },
-    nameStr: {
-      type: STRING(50),
-      defaultValue: null,
-      field: 'name_str',
-    },
     categoryId: {
       type: INTEGER,
       allowNull: false,

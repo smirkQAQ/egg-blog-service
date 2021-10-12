@@ -111,7 +111,7 @@ class UserController extends Controller {
       padding: 30px;
       background: #fcfbfb;
       border: 1px solid #eaeaea;">
-      <img width="150px" src="https://dtcos-1258203853.cos.ap-shenzhen-fsi.myqcloud.com/images/default_bg.jpg">
+      <img width="150px" src="https://dtcos-1258203853.cos.ap-shenzhen-fsi.myqcloud.com/images/default_bg.jpg" alt="logo">
       <h3>Hi</h3>
       <span style="color: rgb(0, 0, 0); font-size: 15px;"> </span>
       <p>

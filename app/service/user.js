@@ -40,6 +40,7 @@ class UserService extends Service {
   }
 
   async queryUserById(id) {
+    const { fn, col } = this.app.Sequelize;
     return this.ctx.model.User.findOne({
       where: { id, status: 1 },
       attributes: [
