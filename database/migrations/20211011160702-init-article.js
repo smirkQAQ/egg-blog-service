@@ -27,10 +27,10 @@ module.exports = {
           key: 'id',
         },
       },
-      subScribe: {
+      subTitle: {
         type: Sequelize.STRING(500),
         defaultValue: null,
-        field: 'sub_scribe',
+        field: 'sub_title',
       },
       cover: {
         type: Sequelize.STRING(300),
@@ -49,7 +49,7 @@ module.exports = {
       favorite: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
-        comment: '点赞数',
+        comment: '收藏',
       },
       view: {
         type: Sequelize.INTEGER,

@@ -15,7 +15,7 @@ module.exports = {
     return queryInterface.bulkInsert('articles', [
       {
         title: 'ES6 补充',
-        uid: 2,
+        uid: 1,
         cover: 'https://dtcos-1258203853.cos.ap-shenzhen-fsi.myqcloud.com/images/javascript.jpg',
         content: '# 1. 块级作用域\n' +
           '​\tES6之前没有块级作用域，ES5的var没有块级作用域的概念，只有function有作用域的概念，ES6的let、const引入了块级作用域。\n' +
@@ -324,7 +324,7 @@ module.exports = {
         view: 122,
         comment: 0,
         category_id: 1,
-        tag_id: 1,
+        tag_id: 4,
       },
     ], {})
   },

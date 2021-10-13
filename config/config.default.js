@@ -21,7 +21,14 @@ module.exports = appInfo => {
   // 权限校验白名单
   config.auth = {
     enable: true,
-    ignore: [ '/api/user/login', '/public/', '/api/user/register' ], // 哪些请求不需要认证
+    ignore: [
+      // '/public/',
+      '/api/user/sendMailCode',
+      '/api/user/register',
+      '/api/user/login',
+      '/api/article/articleList',
+      '/api/article/detail',
+    ], // 哪些请求不需要认证
   }
 
   // 安全策略配置

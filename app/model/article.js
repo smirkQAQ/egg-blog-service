@@ -47,7 +47,7 @@ module.exports = app => {
     favorite: {
       type: INTEGER,
       defaultValue: 0,
-      comment: '点赞数',
+      comment: '收藏',
     },
     view: {
       type: INTEGER,

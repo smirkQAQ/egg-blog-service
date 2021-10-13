@@ -35,11 +35,11 @@ class UserController extends Controller {
     ctx.validate({
       email: 'email',
       password: { type: 'password' },
-      code: { type: 'int' },
+      code: { type: 'string' },
     });
     const { code } = ctx.request.body;
-    const redisCode = await app.redis.get('sendValidateCode' + code);
-    if (redisCode === code) {
+    const redisCode = await app.redis.get(ctx.request.ip + 'emailSend');
+    if (redisCode.substring(0, 5) === code && (redisCode && redisCode.substring(6)) === ctx.request.body.email) {
       const findUserResult = await ctx.service.user.findUser(ctx.request.body);
       if (findUserResult) {
         ctx.body = Success(null, '邮箱已被注册', 400);
@@ -48,7 +48,7 @@ class UserController extends Controller {
         ctx.body = Success(null, '注册成功');
       }
     } else {
-      ctx.body = Success(null, '校验错误', 400);
+      ctx.body = Success(null, '验证失败，请重新输入', 400);
     }
   }
 
@@ -101,40 +101,45 @@ class UserController extends Controller {
       email: 'email',
     }, ctx.query);
     const validateCode = ctx.helper.randomFns();
-    await app.redis.set('sendValidateCode' + ctx.query.email, validateCode, 'ex', 300); // 保存到redis
-    const data = await app.nodemailer.sendMail({
-      from: config.nodemailer.auth.user, // 发送者邮箱地址
-      to: ctx.query.email, // 接收这邮箱地址
-      subject: '你正在注册瞭望灯塔账号', // 邮件主题
-      html: `<div style="width: 690px;
-      overflow: hidden;
-      padding: 30px;
-      background: #fcfbfb;
-      border: 1px solid #eaeaea;">
-      <img width="150px" src="https://dtcos-1258203853.cos.ap-shenzhen-fsi.myqcloud.com/images/default_bg.jpg" alt="logo">
-      <h3>Hi</h3>
-      <span style="color: rgb(0, 0, 0); font-size: 15px;"> </span>
-      <p>
-        <span style="color: rgb(0, 0, 0); font-size: 15px;">您正在 注册账号，验证码为：</span>
-        <span style="color: rgb(0, 0, 0); font-size: 15px;">
-          <strong><span style="color: rgb(78, 164, 220); font-size: 15px;">${validateCode}</span></strong>
-          <span style="font-size: 15px;">。</span>
-        </span>
-      </p>
-      <span style="color: rgb(0, 0, 0); font-size: 15px;"> </span>
-      <p><span style="color: rgb(0, 0, 0); font-size: 15px;">请在5分钟内完成验证。</span></p>
-      <div style="margin-top: 50px;">
+    const redisCodeResult = await app.redis.get(ctx.request.ip + 'emailSend');
+    if (!redisCodeResult) {
+      await app.redis.set(ctx.request.ip + 'emailSend', validateCode + ctx.query.email, 'ex', 300); // 保存到redis
+      const data = await app.nodemailer.sendMail({
+        from: config.nodemailer.auth.user, // 发送者邮箱地址
+        to: ctx.query.email, // 接收这邮箱地址
+        subject: '你正在注册账号', // 邮件主题
+        html: `<div style="width: 690px;
+        overflow: hidden;
+        padding: 30px;
+        background: #fcfbfb;
+        border: 1px solid #eaeaea;">
+        <img width="150px" src="https://dtcos-1258203853.cos.ap-shenzhen-fsi.myqcloud.com/images/default_bg.jpg" alt="logo">
+        <h3>Hi</h3>
         <span style="color: rgb(0, 0, 0); font-size: 15px;"> </span>
-        <p><span style="color: rgb(0, 0, 0); font-size: 15px;">mzlc.fun</span></p>
-        <span style="color: rgb(0, 0, 0);"> </span>
-        <h5 style="border-top: 1px solid #666;color: #777;
-      margin-top: 5px;
-      margin-bottom: 10px;
-      padding-top: 5px;"><span style="color: rgb(119, 119, 119); font-size: 13px;">此为系统邮件，请勿回复。</span></h5>
-      </div>
-    </div>`, // html模板
-    });
-    data && (ctx.body = Success());
+        <p>
+          <span style="color: rgb(0, 0, 0); font-size: 15px;">您正在 注册账号，验证码为：</span>
+          <span style="color: rgb(0, 0, 0); font-size: 15px;">
+            <strong><span style="color: rgb(78, 164, 220); font-size: 15px;">${validateCode}</span></strong>
+            <span style="font-size: 15px;">。</span>
+          </span>
+        </p>
+        <span style="color: rgb(0, 0, 0); font-size: 15px;"> </span>
+        <p><span style="color: rgb(0, 0, 0); font-size: 15px;">请在5分钟内完成验证。</span></p>
+        <div style="margin-top: 50px;">
+          <span style="color: rgb(0, 0, 0); font-size: 15px;"> </span>
+          <p><span style="color: rgb(0, 0, 0); font-size: 15px;">mzlc.fun</span></p>
+          <span style="color: rgb(0, 0, 0);"> </span>
+          <h5 style="border-top: 1px solid #666;color: #777;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        padding-top: 5px;"><span style="color: rgb(119, 119, 119); font-size: 13px;">此为系统邮件，请勿回复。</span></h5>
+        </div>
+        </div>`, // html模板
+      });
+      data && (ctx.body = Success());
+    } else {
+      ctx.body = Success(null, '请勿重复请求', 400);
+    }
   }
 }
 

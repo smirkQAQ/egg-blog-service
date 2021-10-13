@@ -9,7 +9,7 @@
 module.exports = app => {
   const { STRING, INTEGER } = app.Sequelize;
 
-  const Category = app.model.define('categories', {
+  const Category = app.model.define('Category', {
     id: {
       primaryKey: true,
       type: INTEGER,

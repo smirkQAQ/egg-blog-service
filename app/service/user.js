@@ -1,5 +1,6 @@
 'use strict';
 
+// const {exclude} = require("../../.autod.conf");
 const Service = require('egg').Service;
 
 class UserService extends Service {
@@ -40,7 +41,6 @@ class UserService extends Service {
   }
 
   async queryUserById(id) {
-    const { fn, col } = this.app.Sequelize;
     return this.ctx.model.User.findOne({
       where: { id, status: 1 },
       attributes: [
@@ -62,6 +62,19 @@ class UserService extends Service {
 
   async updateAccount(params, id) {
     return this.ctx.model.User.update(params, { where: { id } });
+  }
+
+  async viewAddOne(id) {
+    const { literal } = this.app.Sequelize;
+    return this.ctx.model.User.update(
+      {
+        totalView: literal('total_view + 1'),
+      },
+      {
+        where: { id },
+      },
+
+    );
   }
 }
 
