@@ -1,7 +1,6 @@
 'use strict';
 
 const Service = require('egg').Service;
-// const { literal } = require('sequelize');
 
 class Article extends Service {
   async articles({ page, pageSize, category, tag }) {
@@ -86,6 +85,17 @@ class Article extends Service {
         },
       ],
     });
+  }
+
+  async deleteArticle(id) {
+    return this.ctx.model.Article.update(
+      {
+        status: 2,
+      },
+      {
+        where: { id },
+      }
+    );
   }
 
   async viewAddOne(id) {

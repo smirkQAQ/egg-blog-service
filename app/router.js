@@ -14,6 +14,10 @@ module.exports = app => {
 
   router.get('/api/article/articleList', controller.article.articles);
   router.get('/api/article/detail', controller.article.detail);
+  router.get('/api/article/hot', controller.article.hot);
+  router.get('/api/article/comment', controller.article.comments);
+
+  router.get('/api/admon/deleteArticle', controller.admin.deleteArticle);
 
   router.get('/api/account', controller.user.account);
   router.post('/api/upload', controller.upload.upload);

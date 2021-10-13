@@ -29,6 +29,12 @@ class ArticleController extends Controller {
     };
   }
 
+  async hot() {
+    const { ctx } = this;
+    const hot = await ctx.service.article.hots();
+    ctx.body = Success(hot);
+  }
+
   async detail() {
     const { ctx } = this;
     ctx.validate({
@@ -42,6 +48,14 @@ class ArticleController extends Controller {
     ctx.body = Success(detail);
   }
 
+  async comments() {
+    const { ctx } = this;
+    ctx.validate({
+      id: { type: 'id' },
+    }, ctx.query);
+    const comments = await ctx.service.comment.comments(ctx.query);
+    ctx.body = Success(comments);
+  }
 
 }
 

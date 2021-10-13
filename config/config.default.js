@@ -28,6 +28,7 @@ module.exports = appInfo => {
       '/api/user/login',
       '/api/article/articleList',
       '/api/article/detail',
+      '/api/article/hot'
     ], // 哪些请求不需要认证
   }
 
