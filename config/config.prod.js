@@ -13,7 +13,7 @@ module.exports = appInfo => {
   const config = exports = {};
 
   // add your middleware config here
-  config.middleware = [];
+  // config.middleware = [];
 
   // 服务端口配置
   config.cluster = {

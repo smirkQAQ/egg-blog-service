@@ -39,7 +39,7 @@ class UserController extends Controller {
     });
     const { code } = ctx.request.body;
     const redisCode = await app.redis.get(ctx.request.ip + 'emailSend');
-    if (redisCode.substring(0, 5) === code && (redisCode && redisCode.substring(6)) === ctx.request.body.email) {
+    if (redisCode && redisCode.substring(0, 6) === code && (redisCode && redisCode.substring(6)) === ctx.request.body.email) {
       const findUserResult = await ctx.service.user.findUser(ctx.request.body);
       if (findUserResult) {
         ctx.body = Success(null, '邮箱已被注册', 400);
@@ -104,7 +104,7 @@ class UserController extends Controller {
     const redisCodeResult = await app.redis.get(ctx.request.ip + 'emailSend');
     if (!redisCodeResult) {
       await app.redis.set(ctx.request.ip + 'emailSend', validateCode + ctx.query.email, 'ex', 300); // 保存到redis
-      const data = await app.nodemailer.sendMail({
+      app.nodemailer.sendMail({
         from: config.nodemailer.auth.user, // 发送者邮箱地址
         to: ctx.query.email, // 接收这邮箱地址
         subject: '你正在注册账号', // 邮件主题
@@ -135,8 +135,10 @@ class UserController extends Controller {
         padding-top: 5px;"><span style="color: rgb(119, 119, 119); font-size: 13px;">此为系统邮件，请勿回复。</span></h5>
         </div>
         </div>`, // html模板
+      }, (error, data) => {
+        data && (ctx.body = Success());
+        error && app.nodemailer.close();
       });
-      data && (ctx.body = Success());
     } else {
       ctx.body = Success(null, '请勿重复请求', 400);
     }
