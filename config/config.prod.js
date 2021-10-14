@@ -29,14 +29,15 @@ module.exports = appInfo => {
     host: '127.0.0.1',
     port: 3306,
     database: 'blog_pro',
+    password: 'cE7xpjMthJ8sGHf4'
   };
 
   // reaid配置
   config.redis = {
     client: {
-      port: 6379,          // Redis port
+      port: 6479,          // Redis port
       host: '127.0.0.1',   // Redis host
-      // password: 'auth',
+      password: 'cE7xpjMthJ8sGHf4',
       db: 0,
     },
   };
