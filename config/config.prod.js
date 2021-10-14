@@ -19,7 +19,7 @@ module.exports = appInfo => {
   config.cluster = {
     listen: {
       port: 7001,
-      hostname: '127.0.0.1', // 不建议设置 hostname 为 '0.0.0.0'，它将允许来自外部网络和来源的连接，请在知晓风险的情况下使用
+      hostname: '172.17.10.241', // 不建议设置 hostname 为 '0.0.0.0'，它将允许来自外部网络和来源的连接，请在知晓风险的情况下使用 /服务器使用内网ip
       // path: '/var/run/egg.sock',
     }
   }
@@ -28,6 +28,7 @@ module.exports = appInfo => {
   config.sequelize = {
     host: '127.0.0.1',
     port: 3306,
+    username: 'blog_pro',
     database: 'blog_pro',
     password: 'cE7xpjMthJ8sGHf4'
   };
