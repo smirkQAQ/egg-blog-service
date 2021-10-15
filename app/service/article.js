@@ -9,7 +9,7 @@ class Article extends Service {
     if (tag) where.tagId = tag;
     const { count, rows } = await this.ctx.model.Article.findAndCountAll({
       where,
-      offset: (page - 1) * pageSize ,
+      offset: (page - 1) * pageSize,
       limit: parseInt(pageSize),
       order: [[ 'createdAt', 'DESC' ]],
       attributes: [

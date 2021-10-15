@@ -44,7 +44,8 @@ class ArticleController extends Controller {
       ctx.service.article.viewAddOne(ctx.query.id),
       ctx.service.article.detail(ctx.query),
     ]);
-    await ctx.service.user.viewAddOne(detail.user.id);
+    await ctx.service.user.viewAddOne(detail?.user?.id);
+    // console.log(ctx.status);
     ctx.body = Success(detail);
   }
 
