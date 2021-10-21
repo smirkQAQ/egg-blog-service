@@ -26,8 +26,8 @@ module.exports = app => {
     },
   });
   Category.associate = () => {
-    app.model.Category.hasMany(app.model.Tag, { as: 'tags' });
-    app.model.Category.hasMany(app.model.Article, { as: 'article' });
+    // app.model.Category.hasMany(app.model.Tag, { as: 'tags' });
+    // app.model.Category.hasMany(app.model.Article, { as: 'article' });
   };
   return Category;
 };

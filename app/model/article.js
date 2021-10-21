@@ -78,9 +78,9 @@ module.exports = app => {
   Article.associate = () => {
     // app.model.Article.hasMany(app.model.Comment, { as: 'comments' });
     // app.model.Article.hasMany(app.model.Favorite);
-    app.model.Article.belongsTo(app.model.User, { as: 'user', foreignKey: 'uid' });
-    app.model.Article.belongsTo(app.model.Category, { as: 'category' });
-    app.model.Article.belongsTo(app.model.Tag, { as: 'tag' });
+    // app.model.Article.belongsTo(app.model.User, { as: 'user', foreignKey: 'uid' });
+    // app.model.Article.belongsTo(app.model.Category, { as: 'category' });
+    // app.model.Article.belongsTo(app.model.Tag, { as: 'tag' });
   };
   return Article;
 };

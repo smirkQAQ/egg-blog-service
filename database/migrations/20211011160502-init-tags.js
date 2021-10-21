@@ -13,18 +13,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
         autoIncrement: true,
+        comment: '标签id',
       },
       name: {
         type: Sequelize.STRING(50),
         defaultValue: null,
+        comment: '标签名字',
       },
       category_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {
-          model: 'categories',
-          key: 'id',
-        },
+
       },
       status: {
         type: Sequelize.INTEGER,

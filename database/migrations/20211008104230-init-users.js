@@ -13,14 +13,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
         autoIncrement: true,
+        comment: '用户id',
       },
       user_name: {
         type: Sequelize.STRING(50),
         defaultValue: null,
+        comment: '用户名',
       },
       password: {
         type: Sequelize.STRING,
         allowNull: false,
+        comment: '密码',
       },
       email: {
         type: Sequelize.STRING(100),
@@ -28,10 +31,12 @@ module.exports = {
         validate: {
           isEmail: true,
         },
+        comment: '邮箱',
       },
       nick_name: {
         type: Sequelize.STRING(50),
         defaultValue: null,
+        comment: '昵称',
       },
       avatar: {
         type: Sequelize.STRING(300),
@@ -56,14 +61,17 @@ module.exports = {
       total_view: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
+        comment: '总浏览数',
       },
       total_like: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
+        comment: '总点赞数',
       },
       total_comment: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
+        comment: '总评论数',
       },
       profession: {
         type: Sequelize.STRING(100),

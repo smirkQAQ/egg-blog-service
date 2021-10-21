@@ -13,19 +13,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
         autoIncrement: true,
+        comment: '文章id',
+      },
+      author: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        comment: '作者id',
       },
       title: {
         type: Sequelize.STRING,
         defaultValue: null,
         comment: '文章标题',
-      },
-      uid: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'users',
-          key: 'id',
-        },
       },
       subTitle: {
         type: Sequelize.STRING(500),
@@ -40,11 +38,6 @@ module.exports = {
         type: Sequelize.TEXT,
         defaultValue: null,
         comment: '内容',
-      },
-      anchor: {
-        type: Sequelize.TEXT,
-        defaultValue: null,
-        comment: 'anchor',
       },
       favorite: {
         type: Sequelize.INTEGER,

@@ -13,10 +13,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
         autoIncrement: true,
+        comment: '分类id',
       },
       name: {
         type: Sequelize.STRING(50),
         defaultValue: null,
+        comment: '分类名字',
       },
       status: {
         type: Sequelize.INTEGER,
