@@ -2,6 +2,8 @@
   "extends": "eslint-config-egg",
   "parser": "babel-eslint",
   "rules": {
-    "strict": 0
+    "strict": 0,
+    // 解决注释date warning
+    "jsdoc/check-tag-names": "off"
   }
 }

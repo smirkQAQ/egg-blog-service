@@ -9,28 +9,41 @@ module.exports = app => {
   const { STRING, INTEGER, TEXT, ENUM } = app.Sequelize;
 
   const User = app.model.define('User', {
-    id: { type: INTEGER, primaryKey: true, utoIncrement: true }, // key 自增量
+    id: {
+      primaryKey: true,
+      type: INTEGER,
+      autoIncrement: true,
+      comment: '用户id',
+    },
     userName: {
       type: STRING(50),
       defaultValue: null,
+      comment: '用户名',
       field: 'user_name',
     },
     password: {
-      type: STRING(200),
-      defaultValue: null,
+      type: STRING,
+      allowNull: false,
+      comment: '密码',
     },
     email: {
       type: STRING(100),
       defaultValue: null,
+      validate: {
+        isEmail: true,
+      },
+      comment: '邮箱',
     },
     nickName: {
-      type: STRING(300),
+      type: STRING(50),
       defaultValue: null,
       field: 'nick_name',
+      comment: '昵称',
     },
     avatar: {
       type: STRING(300),
       defaultValue: null,
+      comment: '用户头像',
     },
     website: {
       type: STRING(300),
@@ -51,20 +64,24 @@ module.exports = app => {
       type: INTEGER,
       defaultValue: 0,
       field: 'total_view',
+      comment: '总浏览数',
     },
     totalLike: {
       type: INTEGER,
       defaultValue: 0,
       field: 'total_like',
+      comment: '总点赞数',
     },
     totalComment: {
       type: INTEGER,
       defaultValue: 0,
       field: 'total_comment',
+      comment: '总评论数',
     },
     profession: {
       type: STRING(100),
       defaultValue: null,
+      comment: '职业',
     },
     summary: {
       type: TEXT,
@@ -80,6 +97,7 @@ module.exports = app => {
       type: ENUM('ADMIN', 'GENERAL', 'TOURIST'),
       defaultValue: 'GENERAL',
       field: 'account_type',
+      comment: '账号类型',
     },
   });
   User.associate = () => {

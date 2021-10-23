@@ -11,7 +11,7 @@ function verifyToken(token) {
       current = Math.floor(Date.now() / 1000);
     if (current <= exp) res = result || {};
   } catch (e) {
-    console.log(e);
+    // console.log(e);
   }
   return res;
 }
@@ -27,7 +27,8 @@ module.exports = (options, app) => {
         // 此处使用redis进行保存
         const redis_token = await app.redis.get(uid + email); // 获取保存的token
         if (!redis_token) {
-          ctx.body = { code: 413, msg: '无权限' };
+          ctx.status = 413;
+          ctx.body = { code: 413, message: '无权限' };
           return;
         }
         if (authToken === redis_token) {
@@ -36,13 +37,15 @@ module.exports = (options, app) => {
           ctx.locals.exp = exp;
           await next();
         } else {
-          ctx.body = { code: 301, msg: '您的账号已在其他地方登录' };
+          ctx.status = 301;
+          ctx.body = { code: 301, message: '您的账号已在其他地方登录' };
         }
       } else {
-        ctx.body = { code: 401, msg: 'token已过期' };
+        ctx.status = 401;
+        ctx.body = { code: 401, message: 'token已过期' };
       }
     } else {
-      ctx.body = { code: 403, msg: '请登陆后再进行操作' };
+      ctx.body = { code: 403, message: '请登陆后再进行操作' };
     }
   };
 };

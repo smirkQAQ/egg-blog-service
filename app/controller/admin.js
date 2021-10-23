@@ -6,18 +6,21 @@
 
 'use strict';
 
-const Controller = require('egg').Controller;
-const { Success } = require('../lib/response_status');
+const Controller = require('../lib/base_controller');
 
 class AdminController extends Controller {
   async deleteArticle() {
-    const { ctx } = this;
-    ctx.validate({
-      id: { type: 'int' },
-    });
-    const { id } = ctx.request.body;
-    await ctx.service.article.deleteArticle(id);
-    ctx.body = Success({ id });
+    try {
+      const { ctx } = this;
+      ctx.validate({
+        id: { type: 'int' },
+      });
+      const { id } = ctx.request.body;
+      await ctx.service.article.deleteArticle(id);
+      this.success();
+    } catch (err) {
+      this.fail(err);
+    }
   }
 }
 

@@ -8,89 +8,97 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
+    const { INTEGER, STRING, TEXT, ENUM } = Sequelize
     return queryInterface.createTable('users', {
       id: {
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: INTEGER,
         autoIncrement: true,
         comment: '用户id',
       },
-      user_name: {
-        type: Sequelize.STRING(50),
+      userName: {
+        type: STRING(50),
         defaultValue: null,
         comment: '用户名',
+        field: 'user_name',
       },
       password: {
-        type: Sequelize.STRING,
+        type: STRING,
         allowNull: false,
         comment: '密码',
       },
       email: {
-        type: Sequelize.STRING(100),
+        type: STRING(100),
         defaultValue: null,
         validate: {
           isEmail: true,
         },
         comment: '邮箱',
       },
-      nick_name: {
-        type: Sequelize.STRING(50),
+      nickName: {
+        type: STRING(50),
         defaultValue: null,
+        field: 'nick_name',
         comment: '昵称',
       },
       avatar: {
-        type: Sequelize.STRING(300),
+        type: STRING(300),
         defaultValue: null,
         comment: '用户头像',
       },
       website: {
-        type: Sequelize.STRING(300),
+        type: STRING(300),
         defaultValue: null,
         comment: '个人网址',
       },
       github: {
-        type: Sequelize.STRING(300),
+        type: STRING(300),
         defaultValue: null,
         comment: 'github地址',
       },
       gitee: {
-        type: Sequelize.STRING(300),
+        type: STRING(300),
         defaultValue: null,
         comment: 'gitee地址',
       },
-      total_view: {
-        type: Sequelize.INTEGER,
+      totalView: {
+        type: INTEGER,
         defaultValue: 0,
+        field: 'total_view',
         comment: '总浏览数',
       },
-      total_like: {
-        type: Sequelize.INTEGER,
+      totalLike: {
+        type: INTEGER,
         defaultValue: 0,
+        field: 'total_like',
         comment: '总点赞数',
       },
-      total_comment: {
-        type: Sequelize.INTEGER,
+      totalComment: {
+        type: INTEGER,
         defaultValue: 0,
+        field: 'total_comment',
         comment: '总评论数',
       },
       profession: {
-        type: Sequelize.STRING(100),
+        type: STRING(100),
         defaultValue: null,
         comment: '职业',
       },
       summary: {
-        type: Sequelize.TEXT,
+        type: TEXT,
         defaultValue: null,
         comment: '用户简介或签名',
       },
       status: {
-        type: Sequelize.INTEGER,
+        type: INTEGER,
         defaultValue: 1,
         comment: '1->正常,2->删除',
       },
-      account_type: {
-        type: Sequelize.ENUM('ADMIN', 'GENERAL', 'TOURIST'),
+      accountType: {
+        type: ENUM('ADMIN', 'GENERAL', 'TOURIST'),
         defaultValue: 'GENERAL',
+        field: 'account_type',
+        comment: '账号类型',
       },
       created_at: {
         type: Sequelize.DATE,
@@ -102,7 +110,15 @@ module.exports = {
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-    }).then(() => queryInterface.addIndex('users', [ 'email', 'status', 'account_type' ]));
+    }).then(() => {
+      queryInterface.addIndex('users', [ 'email', 'status', 'account_type' ])
+      queryInterface.bulkInsert('users', [{
+        password: 'e10adc3949ba59abbe56e057f20f883e',
+        email: '645164947@qq.com',
+        nick_name: '菜鸡',
+        account_type: 'ADMIN',
+      }])
+    });
   },
 
   down: async queryInterface => {

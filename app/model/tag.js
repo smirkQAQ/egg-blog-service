@@ -14,15 +14,18 @@ module.exports = app => {
       primaryKey: true,
       type: INTEGER,
       autoIncrement: true,
+      comment: '标签id',
     },
     name: {
       type: STRING(50),
       defaultValue: null,
+      comment: '标签名字',
     },
     categoryId: {
       type: INTEGER,
       allowNull: false,
       field: 'category_id',
+      comment: '分类id',
     },
     status: {
       type: INTEGER,

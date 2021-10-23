@@ -14,10 +14,12 @@ module.exports = app => {
       primaryKey: true,
       type: INTEGER,
       autoIncrement: true,
+      comment: '文章id',
     },
-    uid: {
+    author: {
       type: INTEGER,
       allowNull: false,
+      comment: '作者id',
     },
     title: {
       type: STRING,
@@ -28,6 +30,7 @@ module.exports = app => {
       type: STRING(500),
       defaultValue: null,
       field: 'sub_title',
+      comment: '副标题',
     },
     cover: {
       type: STRING(300),
@@ -38,11 +41,6 @@ module.exports = app => {
       type: TEXT,
       defaultValue: null,
       comment: '内容',
-    },
-    anchor: {
-      type: TEXT,
-      defaultValue: null,
-      comment: 'anchor',
     },
     favorite: {
       type: INTEGER,
@@ -63,16 +61,6 @@ module.exports = app => {
       type: INTEGER,
       defaultValue: 1,
       comment: '1->正常,2->删除',
-    },
-    categoryId: {
-      type: INTEGER,
-      allowNull: false,
-      field: 'category_id',
-    },
-    tagId: {
-      type: INTEGER,
-      allowNull: false,
-      field: 'tag_id',
     },
   });
   Article.associate = () => {
