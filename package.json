@@ -39,7 +39,7 @@
     "start": "egg-scripts start --daemon --title=egg-server-egg",
     "stop": "egg-scripts stop --title=egg-server-egg",
     "dev": "egg-bin dev",
-    "debug": "egg-bin debug",
+    "debug": "egg-bin debug --workers=1",
     "cov": "egg-bin cov",
     "lint": "eslint .",
     "autod": "autod"

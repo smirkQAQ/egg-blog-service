@@ -27,7 +27,7 @@ module.exports = (options, app) => {
         // 此处使用redis进行保存
         const redis_token = await app.redis.get(uid + email); // 获取保存的token
         if (!redis_token) {
-          ctx.status = 413;
+          ctx.status = 200;
           ctx.body = { code: 413, message: '无权限' };
           return;
         }
@@ -37,11 +37,11 @@ module.exports = (options, app) => {
           ctx.locals.exp = exp;
           await next();
         } else {
-          ctx.status = 301;
+          ctx.status = 200;
           ctx.body = { code: 301, message: '您的账号已在其他地方登录' };
         }
       } else {
-        ctx.status = 401;
+        ctx.status = 200;
         ctx.body = { code: 401, message: 'token已过期' };
       }
     } else {

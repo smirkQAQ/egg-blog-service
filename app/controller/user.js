@@ -11,11 +11,12 @@ class UserController extends Controller {
         password: 'string',
       });
       const { password } = ctx.request.body;
+      const p = ctx.helper.cryptPwd(password);
       const user = await ctx.service.user.findUser(ctx.request.body);
       if (!user) {
         this.fail('该用户不存在或者已经被删除');
         return;
-      } else if (ctx.helper.cryptPwd(password) !== user.password) {
+      } else if (p !== user.password) {
         this.fail('密码不正确,请重新输入');
         return;
       }
