@@ -36,6 +36,7 @@ module.exports = {
       },
       toUid: {
         type: INTEGER,
+        defaultValue: 0,
         allowNull: false,
         field: 'to_uid',
         comment: '评论目标用户id',

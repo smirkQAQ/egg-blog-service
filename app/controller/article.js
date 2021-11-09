@@ -6,8 +6,7 @@
 
 'use strict';
 
-const Controller = require('egg').Controller;
-const { Success } = require('../lib/response_status');
+const Controller = require('../lib/base_controller');
 
 class ArticleController extends Controller {
   async articles() {
@@ -32,7 +31,7 @@ class ArticleController extends Controller {
   async hot() {
     const { ctx } = this;
     const hot = await ctx.service.article.hots();
-    ctx.body = Success(hot);
+    this.success(hot);
   }
 
   async detail() {
@@ -40,13 +39,13 @@ class ArticleController extends Controller {
     ctx.validate({
       id: { type: 'id' },
     }, ctx.query);
-    const [ , detail ] = await Promise.all([
-      ctx.service.article.viewAddOne(ctx.query.id),
+    const [ detail ] = await Promise.all([
+      // ctx.service.article.viewAddOne(ctx.query.id),
       ctx.service.article.detail(ctx.query),
     ]);
-    await ctx.service.user.viewAddOne(detail?.user?.id);
+    // await ctx.service.user.viewAddOne(detail?.user?.id);
     // console.log(ctx.status);
-    ctx.body = Success(detail);
+    this.success(detail);
   }
 
   async comments() {
@@ -55,7 +54,7 @@ class ArticleController extends Controller {
       id: { type: 'id' },
     }, ctx.query);
     const comments = await ctx.service.comment.comments(ctx.query);
-    ctx.body = Success(comments);
+    this.success(comments);
   }
 
 }

@@ -13,25 +13,26 @@ class Article extends Service {
       limit: parseInt(pageSize),
       order: [[ 'createdAt', 'DESC' ]],
       attributes: [
+        'id',
         'view',
         'title',
+        'subTitle',
         'favorite',
-        'id',
         // 'comment',
         'cover',
         'createdAt',
       ],
       include: [
-        {
-          model: this.ctx.model.Tag,
-          as: 'tag',
-          attributes: [[ 'id', 'value' ], [ 'name', 'key' ]],
-        },
-        {
-          model: this.ctx.model.Category,
-          as: 'category',
-          attributes: [[ 'id', 'value' ], [ 'name', 'key' ]],
-        },
+        // {
+        //   model: this.ctx.model.Tag,
+        //   as: 'tag',
+        //   attributes: [[ 'id', 'value' ], [ 'name', 'key' ]],
+        // },
+        // {
+        //   model: this.ctx.model.Category,
+        //   as: 'category',
+        //   attributes: [[ 'id', 'value' ], [ 'name', 'key' ]],
+        // },
         {
           model: this.ctx.model.User,
           as: 'user',
@@ -54,17 +55,17 @@ class Article extends Service {
     return this.ctx.model.Article.findOne({
       where: { id },
       attributes: {
-        exclude: [ 'CategoryId', 'TagId' ],
+        exclude: [ 'CategoryId', 'TagId', 'author', 'status' ],
       },
       include: [
-        {
-          model: this.ctx.model.Tag,
-          as: 'tag',
-        },
-        {
-          model: this.ctx.model.Category,
-          as: 'category',
-        },
+        // {
+        //   model: this.ctx.model.Tag,
+        //   as: 'tag',
+        // },
+        // {
+        //   model: this.ctx.model.Category,
+        //   as: 'category',
+        // },
         {
           model: this.ctx.model.User,
           as: 'user',

@@ -101,7 +101,7 @@ module.exports = app => {
     },
   });
   User.associate = () => {
-    // app.model.User.hasMany(app.model.Article, { foreignKey: 'uid' });
+    app.model.User.hasMany(app.model.Article, { foreignKey: 'author' });
   };
   return User;
 };

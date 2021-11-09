@@ -72,7 +72,7 @@ class UserService extends Service {
       },
       {
         where: { id },
-      },
+      }
 
     );
   }
