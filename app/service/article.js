@@ -62,10 +62,6 @@ class Article extends Service {
         //   model: this.ctx.model.Tag,
         //   as: 'tag',
         // },
-        // {
-        //   model: this.ctx.model.Category,
-        //   as: 'category',
-        // },
         {
           model: this.ctx.model.User,
           as: 'user',
