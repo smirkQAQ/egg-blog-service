@@ -16,11 +16,6 @@ module.exports = app => {
       autoIncrement: true,
       comment: '文章id',
     },
-    author: {
-      type: INTEGER,
-      allowNull: false,
-      comment: '作者id',
-    },
     title: {
       type: STRING,
       defaultValue: null,
@@ -61,6 +56,11 @@ module.exports = app => {
       type: INTEGER,
       defaultValue: 1,
       comment: '1->正常,2->删除',
+    },
+    author: {
+      type: INTEGER,
+      allowNull: false,
+      comment: '作者id',
     },
   });
   Article.associate = () => {
