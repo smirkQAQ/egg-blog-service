@@ -64,10 +64,8 @@ module.exports = app => {
     },
   });
   Article.associate = () => {
-    // app.model.Article.hasMany(app.model.Comment, { as: 'comments' });
-    // app.model.Article.hasMany(app.model.Favorite);
     app.model.Article.belongsTo(app.model.User, { as: 'user', foreignKey: 'author' });
-    // app.model.Article.belongsTo(app.model.Tag, { as: 'tag' });
+    app.model.Article.hasMany(app.model.TagRelationships, { as: 'tags', foreignKey: 'articleId' });
   };
   return Article;
 };

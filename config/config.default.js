@@ -65,10 +65,19 @@ module.exports = appInfo => {
     dialect: 'mysql',
     dialectOptions: {
       charset: 'utf8mb4',
+      dateStrings: true,
+      typeCast(field, next) {
+        // for reading from database
+        if (field.type === "DATETIME") {
+          return field.string();
+        }
+        return next();
+      }
     },
     host: '127.0.0.1',
     port: 3306,
     database: 'blog_test',
+    timezone: '+08:00', //东八时区
   };
 
   // reaid配置
