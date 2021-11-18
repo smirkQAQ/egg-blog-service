@@ -48,14 +48,14 @@ class ArticleController extends Controller {
     this.success(detail);
   }
 
-  async comments() {
-    const { ctx } = this;
-    ctx.validate({
-      id: { type: 'id' },
-    }, ctx.query);
-    const comments = await ctx.service.comment.comments(ctx.query);
-    this.success(comments);
-  }
+  // async comments() {
+  //   const { ctx } = this;
+  //   ctx.validate({
+  //     id: { type: 'id' },
+  //   }, ctx.query);
+  //   const comments = await ctx.service.comment.comments(ctx.query);
+  //   this.success(comments);
+  // }
 
 }
 

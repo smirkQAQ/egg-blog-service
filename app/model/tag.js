@@ -21,12 +21,6 @@ module.exports = app => {
       defaultValue: null,
       comment: '标签名字',
     },
-    categoryId: {
-      type: INTEGER,
-      allowNull: false,
-      field: 'category_id',
-      comment: '分类id',
-    },
     status: {
       type: INTEGER,
       defaultValue: 1,
@@ -34,8 +28,7 @@ module.exports = app => {
     },
   });
   Tag.associate = () => {
-    // app.model.Tag.belongsTo(app.model.Category, { as: 'category' });
-    // app.model.Tag.hasMany(app.model.Article, { as: 'article' });
+    app.model.Tag.hasOne(app.model.TagRelationships, { foreignKey: 'tagId' });
   };
   return Tag;
 };

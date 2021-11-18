@@ -23,16 +23,18 @@ class Article extends Service {
         'createdAt',
       ],
       include: [
-        // {
-        //   model: this.ctx.model.Tag,
-        //   as: 'tag',
-        //   attributes: [[ 'id', 'value' ], [ 'name', 'key' ]],
-        // },
-        // {
-        //   model: this.ctx.model.Category,
-        //   as: 'category',
-        //   attributes: [[ 'id', 'value' ], [ 'name', 'key' ]],
-        // },
+        {
+          model: this.ctx.model.TagRelationships,
+          as: 'tags',
+          attributes: [ 'id', 'createdAt', 'updatedAt' ],
+          include: [
+            {
+              model: this.ctx.model.Tag,
+              as: 'Tag',
+              attributes: [ 'name' ],
+            },
+          ],
+        },
         {
           model: this.ctx.model.User,
           as: 'user',
@@ -58,14 +60,18 @@ class Article extends Service {
         exclude: [ 'CategoryId', 'TagId', 'author', 'status' ],
       },
       include: [
-        // {
-        //   model: this.ctx.model.Tag,
-        //   as: 'tag',
-        // },
-        // {
-        //   model: this.ctx.model.Category,
-        //   as: 'category',
-        // },
+        {
+          model: this.ctx.model.TagRelationships,
+          as: 'tags',
+          attributes: [ 'id', 'createdAt', 'updatedAt' ],
+          include: [
+            {
+              model: this.ctx.model.Tag,
+              as: 'Tag',
+              attributes: [ 'name' ],
+            },
+          ],
+        },
         {
           model: this.ctx.model.User,
           as: 'user',

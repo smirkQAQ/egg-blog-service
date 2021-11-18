@@ -35,7 +35,16 @@ module.exports = (options, app) => {
           ctx.locals.uid = uid;
           ctx.locals.email = email;
           ctx.locals.exp = exp;
-          await next();
+          if (ctx.path.indexOf('/admin/') !== -1) {
+            if (type === 'ADMIN') {
+              await next();
+            } else {
+              ctx.status = 200;
+              ctx.body = { code: 301, message: '角色无权限' };
+            }
+          } else {
+            await next();
+          }
         } else {
           ctx.status = 200;
           ctx.body = { code: 301, message: '您的账号已在其他地方登录' };

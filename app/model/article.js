@@ -16,11 +16,6 @@ module.exports = app => {
       autoIncrement: true,
       comment: '文章id',
     },
-    author: {
-      type: INTEGER,
-      allowNull: false,
-      comment: '作者id',
-    },
     title: {
       type: STRING,
       defaultValue: null,
@@ -62,13 +57,15 @@ module.exports = app => {
       defaultValue: 1,
       comment: '1->正常,2->删除',
     },
+    author: {
+      type: INTEGER,
+      allowNull: false,
+      comment: '作者id',
+    },
   });
   Article.associate = () => {
-    // app.model.Article.hasMany(app.model.Comment, { as: 'comments' });
-    // app.model.Article.hasMany(app.model.Favorite);
     app.model.Article.belongsTo(app.model.User, { as: 'user', foreignKey: 'author' });
-    // app.model.Article.belongsTo(app.model.Category, { as: 'category' });
-    // app.model.Article.belongsTo(app.model.Tag, { as: 'tag' });
+    app.model.Article.hasMany(app.model.TagRelationships, { as: 'tags', foreignKey: 'articleId' });
   };
   return Article;
 };
