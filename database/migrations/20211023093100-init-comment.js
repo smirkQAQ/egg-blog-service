@@ -41,6 +41,13 @@ module.exports = {
         field: 'to_uid',
         comment: '评论目标用户id',
       },
+      replyId: {
+        type: INTEGER,
+        defaultValue: 0,
+        allowNull: false,
+        field: 'reply_id',
+        comment: '回复id'
+      },
       status: {
         type: INTEGER,
         defaultValue: 1,

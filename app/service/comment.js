@@ -4,17 +4,28 @@ const Service = require('egg').Service;
 
 class Comment extends Service {
   async comments(query) {
-    const { Op } = this.app.Sequelize;
-    const where = { status: 1, toUid: 0 };
+    const where = { status: 1 };
     if (query) where.article_id = query.id;
     const result = await this.ctx.model.Comment.findAll({
       where,
+      // attributes: []
     });
-    where.toUid = { [Op.ne]: 0 }; // 不等于0
-    const childResult = await this.ctx.model.Comment.findAll({ where });
-    console.log(childResult);
-    result.dataValues.aa = 'sb';
-    return result;
+    const topComment = result.filter(item => {
+      return item.toUid === 0
+    })
+    const replyComment = result.filter(item => {
+      return item.toUid !== 0
+    })
+    topComment.forEach(topItem => {
+      replyComment.forEach(replyItem => {
+        if (topItem.id === replyItem.replyId) {
+          topItem.dataValues.child = replyComment
+        } else {
+          topItem.dataValues.child = []
+        }
+      })
+    })
+    return topComment;
   }
 }
 
