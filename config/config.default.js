@@ -2,6 +2,8 @@
 
 'use strict';
 
+const path = require('path');
+
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -31,6 +33,22 @@ module.exports = appInfo => {
       '/api/article/detail',
       '/api/article/hot',
     ], // 哪些请求不需要认证
+  }
+
+  // 日志目录
+  config.logger = {
+    dir: './logs',
+    appLogName: `${appInfo.name}控制台日志.log`,
+    coreLogName: '框架内核-插件日志.log',
+    agentLogName: '代理日志.log',
+    errorLogName: '错误日志.log',
+  };
+
+  // 定时任务日志
+  config.customLogger = {
+    scheduleLogger: {
+      file: path.join(appInfo.root, 'logs', '定时任务日志.log'),
+    }
   }
 
   // 安全策略配置
