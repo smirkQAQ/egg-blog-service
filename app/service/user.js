@@ -55,7 +55,7 @@ class UserService extends Service {
         'gitee',
         'profession',
         'summary',
-        // 'accountType',
+        'accountType',
       ],
     });
   }

@@ -8,17 +8,19 @@
 
 const Controller = require('../lib/base_controller');
 
-class CommonController extends Controller {
-  async commons() {
-    // const { ctx } = this;
-    // try {
-    //   ctx.validate({
-    //     id: 'int',
-    //   }, ctx.query);
-    //   ctx.service
-    // } catch (e) {
-    //   this.fail(e);
-    // }
+class CommentController extends Controller {
+  async comments() {
+    const { ctx } = this;
+    try {
+      ctx.validate({
+        id: 'int',
+      }, ctx.query);
+      const comments = await ctx.service.comment.comments(ctx.query);
+      this.success(comments);
+    } catch (e) {
+      console.log(e);
+      this.fail(e);
+    }
   }
 
   async createCommon() {
@@ -38,4 +40,4 @@ class CommonController extends Controller {
   }
 }
 
-module.exports = CommonController;
+module.exports = CommentController;

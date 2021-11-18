@@ -26,9 +26,10 @@ module.exports = appInfo => {
       '/api/user/sendMailCode',
       '/api/user/register',
       '/api/user/login',
+      // '/api/user/logout',
       '/api/article/articleList',
       '/api/article/detail',
-      '/api/article/hot'
+      '/api/article/hot',
     ], // 哪些请求不需要认证
   }
 
@@ -128,19 +129,15 @@ module.exports = appInfo => {
 
   // 短信验证
   config.nodemailer = {
-    service: 'gmail',
-    // host: 'smtp.qq.com', // 服务 网易163邮箱 smtp.163.com google: smtp.gmail.com
-    // host: 'smtp.163.com',
-    host: 'smtp.gmail.com',
+    service: 'qq',
+    host: 'smtp.qq.com', // 服务 网易163邮箱 smtp.163.com google: smtp.gmail.com
     port: 465, // smtp端口 465
     secure: true,
     auth: {
-      // user: '645164947@qq.com', // 用户名
-      // pass: 'tgvjbhykfacrbech' // SMTP授权码
       // user: 'wengyapai19870315@163.com', // 用户名
-      // pass: 'FMCGZXZWOIMWEKKZ' // SMTP授权码
-      user: 'sunlincong20@gmail.com', // 用户名
-      pass: 'mzoddwzfydhplaib' // SMTP授权码
+      // pass: 'FMCGZXZWOIMWEKKZ' // SMTP授权码 wx jcsiakzkbsovcgjc gmai： sunlincong20@gmail.com mzoddwzfydhplaib
+      user: 'smirk_lc_mail@qq.com', // 用户名
+      pass: 'jcsiakzkbsovcgjc' // SMTP授权码
     }
   }
 

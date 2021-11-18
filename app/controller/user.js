@@ -20,7 +20,11 @@ class UserController extends Controller {
         this.fail('密码不正确,请重新输入');
         return;
       }
-      user.dataValues.token = await ctx.service.user.generateToken({ uid: user.id, email: user.email, type: user.account_type });
+      user.dataValues.token = await ctx.service.user.generateToken({
+        uid: user.id,
+        email: user.email,
+        type: user.accountType,
+      });
       this.success(user);
     } catch (e) {
       this.fail(e, 500);
