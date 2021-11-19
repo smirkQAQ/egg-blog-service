@@ -28,7 +28,7 @@ module.exports = appInfo => {
       '/api/user/sendMailCode',
       '/api/user/register',
       '/api/user/login',
-      // '/api/user/logout',
+      '/api/comment/comments',
       '/api/article/articleList',
       '/api/article/detail',
       '/api/article/hot',

@@ -15,10 +15,14 @@ module.exports = app => {
   router.get('/api/article/articleList', controller.article.articles);
   router.get('/api/article/detail', controller.article.detail);
   router.get('/api/article/hot', controller.article.hot);
+
+  router.post('/api/comment/createComment', controller.comment.createComment);
   router.get('/api/comment/comments', controller.comment.comments);
+  router.get('/api/comment/setTop', controller.comment.setTop);
+  router.get('/api/comment/deleteComment', controller.comment.deleteComment);
 
   router.get('/api/admin/article/deleteArticle', controller.admin.article.deleteArticle);
-  router.get('/api/admin/article/test', controller.admin.article.test);
+  // router.get('/api/admin/comment/deleteComment', controller.admin.comment.deleteComment);
 
   router.get('/api/account', controller.user.account);
   router.post('/api/upload', controller.upload.upload);
