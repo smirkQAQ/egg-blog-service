@@ -17,7 +17,7 @@ module.exports = {
         autoIncrement: true,
         comment: '文章id',
       },
-      author: {
+      uid: {
         type: INTEGER,
         allowNull: false,
         comment: '作者id',

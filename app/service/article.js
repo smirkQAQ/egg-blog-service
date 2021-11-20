@@ -3,6 +3,29 @@
 const Service = require('egg').Service;
 
 class Article extends Service {
+  async createArticle(params, uid) {
+    const {
+      title,
+      content,
+      coverImageUrl,
+      tagIds = null,
+    } = params;
+    // 创建事务
+    return await this.app.Sequelize.transaction(async t => {
+      const articleResult = await this.ctx.model.Article.create({
+        title,
+        content,
+        cover: coverImageUrl,
+        uid,
+      }, { transaction: t });
+      const tagArr = tagIds?.split(',').map(item => {
+        return { articleId: articleResult.articleId, tagId: item };
+      });
+      tagArr && await this.ctx.model.TagRelationships.bulkCreate(tagArr, { transaction: t });
+      return articleResult;
+    });
+  }
+
   async articles({ page, pageSize, category, tag }) {
     const where = { status: 1 };
     if (category) where.categoryId = category;
@@ -57,7 +80,7 @@ class Article extends Service {
     return this.ctx.model.Article.findOne({
       where: { id },
       attributes: {
-        exclude: [ 'CategoryId', 'TagId', 'author', 'status' ],
+        exclude: [ 'CategoryId', 'TagId', 'uid', 'status' ],
       },
       include: [
         {

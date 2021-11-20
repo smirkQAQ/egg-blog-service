@@ -22,6 +22,7 @@ module.exports = app => {
   router.get('/api/comment/deleteComment', controller.comment.deleteComment);
 
   router.get('/api/admin/article/deleteArticle', controller.admin.article.deleteArticle);
+  router.post('/api/admin/article/saveArticle', controller.admin.article.saveArticle);
   // router.get('/api/admin/comment/deleteComment', controller.admin.comment.deleteComment);
 
   router.get('/api/account', controller.user.account);
