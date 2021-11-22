@@ -11,19 +11,18 @@ class Article extends Service {
       tagIds = null,
     } = params;
     // 创建事务
-    return await this.app.Sequelize.transaction(async t => {
-      const articleResult = await this.ctx.model.Article.create({
-        title,
-        content,
-        cover: coverImageUrl,
-        uid,
-      }, { transaction: t });
-      const tagArr = tagIds?.split(',').map(item => {
-        return { articleId: articleResult.articleId, tagId: item };
-      });
-      tagArr && await this.ctx.model.TagRelationships.bulkCreate(tagArr, { transaction: t });
-      return articleResult;
+    const transaction = await this.app.transaction();
+    const articleResult = await this.ctx.model.Article.create({
+      title,
+      content,
+      cover: coverImageUrl,
+      uid,
+    }, { transaction });
+    const tagArr = tagIds?.split(',').map(item => {
+      return { articleId: articleResult.id, tagId: item };
     });
+    tagArr && await this.ctx.model.TagRelationships.bulkCreate(tagArr, { transaction });
+    return articleResult;
   }
 
   async articles({ page, pageSize, category, tag }) {

@@ -14,34 +14,26 @@ class AdminArticleController extends Controller {
       const { ctx } = this;
       ctx.validate({
         id: { type: 'int' },
-      });
-      const { id } = ctx.request.body;
+      }, ctx.query);
+      const { id } = ctx.query;
       await ctx.service.article.deleteArticle(id);
-      this.success();
+      this.success({ id }, '删除成功！');
     } catch (err) {
       this.fail(err);
     }
   }
 
   async saveArticle() {
-    try {
-      const { ctx } = this;
-      ctx.validate({
-        title: { type: 'string' },
-        content: { type: 'string' },
-        coverImageUrl: { type: 'string' },
-        // tagIds,
-      });
-      const { uid } = ctx.locals;
-      const create = await ctx.service.article.createArticle(ctx.request.body, uid);
-      this.success(create);
-    } catch (err) {
-      this.fail(err);
-    }
-  }
-
-  async test() {
-    this.success();
+    const { ctx } = this;
+    ctx.validate({
+      title: { type: 'string' },
+      content: { type: 'string' },
+      coverImageUrl: { type: 'string' },
+      // tagIds,
+    });
+    const { uid } = ctx.locals;
+    const create = await ctx.service.article.createArticle(ctx.request.body, uid);
+    this.success(create, '创建成功！');
   }
 }
 
