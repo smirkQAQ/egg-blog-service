@@ -25,9 +25,9 @@ module.exports = () => {
         code: status,
         message: error,
       };
-      // if (status === 422) {
-      //   ctx.body.data = err.errors;
-      // }
+      if (status === 422) {
+        ctx.body.data = err.errors;
+      }
       ctx.status = status;
 
       const transaction = await ctx.app.getTransaction();

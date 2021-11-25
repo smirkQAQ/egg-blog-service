@@ -31,7 +31,7 @@ class Article extends Service {
     if (tag) where.tagId = tag;
     const { count, rows } = await this.ctx.model.Article.findAndCountAll({
       where,
-      offset: (page - 1) * pageSize,
+      offset: (parseInt(page) - 1) * parseInt(pageSize),
       limit: parseInt(pageSize),
       order: [[ 'createdAt', 'DESC' ]],
       attributes: [
@@ -63,6 +63,7 @@ class Article extends Service {
           attributes: [ 'id', 'userName', 'email', 'nickName' ],
         },
       ],
+      distinct: true,
     });
     return { count, rows };
   }
