@@ -28,7 +28,7 @@ module.exports = appInfo => {
       '/api/user/sendMailCode',
       '/api/user/register',
       '/api/user/login',
-      // '/api/user/logout',
+      '/api/comment/comments',
       '/api/article/articleList',
       '/api/article/detail',
       '/api/article/hot',
@@ -47,7 +47,7 @@ module.exports = appInfo => {
   // 定时任务日志
   config.customLogger = {
     scheduleLogger: {
-      file: path.join(appInfo.root, 'logs', '定时任务日志.log'),
+      file: path.join(appInfo.baseDir, 'logs', '定时任务日志.log'),
     }
   }
 

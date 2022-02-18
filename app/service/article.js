@@ -3,13 +3,35 @@
 const Service = require('egg').Service;
 
 class Article extends Service {
+  async createArticle(params, uid) {
+    const {
+      title,
+      content,
+      coverImageUrl,
+      tagIds = null,
+    } = params;
+    // 创建事务
+    const transaction = await this.app.transaction();
+    const articleResult = await this.ctx.model.Article.create({
+      title,
+      content,
+      cover: coverImageUrl,
+      uid,
+    }, { transaction });
+    const tagArr = tagIds?.split(',').map(item => {
+      return { articleId: articleResult.id, tagId: item };
+    });
+    tagArr && await this.ctx.model.TagRelationships.bulkCreate(tagArr, { transaction });
+    return articleResult;
+  }
+
   async articles({ page, pageSize, category, tag }) {
     const where = { status: 1 };
     if (category) where.categoryId = category;
     if (tag) where.tagId = tag;
     const { count, rows } = await this.ctx.model.Article.findAndCountAll({
       where,
-      offset: (page - 1) * pageSize,
+      offset: (parseInt(page) - 1) * parseInt(pageSize),
       limit: parseInt(pageSize),
       order: [[ 'createdAt', 'DESC' ]],
       attributes: [
@@ -41,6 +63,7 @@ class Article extends Service {
           attributes: [ 'id', 'userName', 'email', 'nickName' ],
         },
       ],
+      distinct: true,
     });
     return { count, rows };
   }
@@ -57,7 +80,7 @@ class Article extends Service {
     return this.ctx.model.Article.findOne({
       where: { id },
       attributes: {
-        exclude: [ 'CategoryId', 'TagId', 'author', 'status' ],
+        exclude: [ 'CategoryId', 'TagId', 'uid', 'status' ],
       },
       include: [
         {

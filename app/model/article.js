@@ -57,14 +57,14 @@ module.exports = app => {
       defaultValue: 1,
       comment: '1->正常,2->删除',
     },
-    author: {
+    uid: {
       type: INTEGER,
       allowNull: false,
       comment: '作者id',
     },
   });
   Article.associate = () => {
-    app.model.Article.belongsTo(app.model.User, { as: 'user', foreignKey: 'author' });
+    app.model.Article.belongsTo(app.model.User, { as: 'user', foreignKey: 'uid' });
     app.model.Article.hasMany(app.model.TagRelationships, { as: 'tags', foreignKey: 'articleId' });
   };
   return Article;

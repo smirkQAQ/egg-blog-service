@@ -8,7 +8,7 @@
 
 module.exports = app => {
   const { TEXT, INTEGER } = app.Sequelize;
-  return app.model.define('Comment', {
+  const Comment = app.model.define('Comment', {
     id: {
       primaryKey: true,
       type: INTEGER,
@@ -44,7 +44,13 @@ module.exports = app => {
       defaultValue: 0,
       allowNull: false,
       field: 'reply_id',
-      comment: '回复id'
+      comment: '回复id',
+    },
+    isTop: {
+      type: INTEGER,
+      defaultValue: 0,
+      field: 'is_top',
+      comment: '0->不置顶，1->置顶',
     },
     status: {
       type: INTEGER,
@@ -52,4 +58,9 @@ module.exports = app => {
       comment: '1->正常，2->删除',
     },
   });
+  Comment.associate = () => {
+    app.model.Comment.belongsTo(app.model.User, { as: 'fromUser', foreignKey: 'fromUid' });
+    app.model.Comment.belongsTo(app.model.User, { as: 'toUser', foreignKey: 'toUid' });
+  };
+  return Comment;
 };

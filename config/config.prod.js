@@ -43,6 +43,13 @@ module.exports = appInfo => {
     },
   };
 
+  config.alinode = {
+    // 从 `Node.js 性能平台` 获取对应的接入参数
+    server: 'wss://agentserver.node.aliyun.com:8080',
+    appid: '89471',
+    secret: 'f897e36f90a0391f162131d8639e8e73a9e8df4c',
+  };
+
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',

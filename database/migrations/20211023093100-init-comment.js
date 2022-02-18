@@ -48,6 +48,12 @@ module.exports = {
         field: 'reply_id',
         comment: '回复id'
       },
+      isTop: {
+        type: INTEGER,
+        defaultValue: 0,
+        field: 'is_top',
+        comment: '0->不置顶，1->置顶',
+      },
       status: {
         type: INTEGER,
         defaultValue: 1,

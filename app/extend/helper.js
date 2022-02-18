@@ -29,6 +29,9 @@ module.exports = {
     if (!str) return str;
     return parseInt(str, 10) || 0;
   },
+  isEmpty() {
+
+  },
   /**
    * MD5加密 密码
    * @param {string} pw -明文密码

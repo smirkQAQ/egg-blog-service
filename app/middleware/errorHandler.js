@@ -4,6 +4,13 @@ module.exports = () => {
   return async function errorHandler(ctx, next) {
     try {
       await next();
+
+      const transaction = await ctx.app.getTransaction();
+      // 如果有事务自动提交
+      if (transaction) {
+        transaction.commit();
+        ctx.app.deleteTransaction();
+      }
     } catch (err) {
       // 所有的异常都在 app 上触发一个 error 事件，框架会记录一条错误日志
       ctx.app.emit('error', err, ctx);
@@ -18,10 +25,17 @@ module.exports = () => {
         code: status,
         message: error,
       };
-      // if (status === 422) {
-      //   ctx.body.data = err.errors;
-      // }
+      if (status === 422) {
+        ctx.body.data = err.errors;
+      }
       ctx.status = status;
+
+      const transaction = await ctx.app.getTransaction();
+      // 如果有事务自动回滚
+      if (transaction) {
+        transaction.rollback();
+        ctx.app.deleteTransaction();
+      }
     }
   };
 };
