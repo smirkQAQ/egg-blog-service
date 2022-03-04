@@ -1,9 +1,18 @@
+// 警告等级 0忽略 1警告 2报错
 {
-  "extends": "eslint-config-egg",
-  "parser": "babel-eslint",
+  "extends": "eslint-config-egg/typescript",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "rules": {
     "strict": 0,
     // 解决注释date warning
-    "jsdoc/check-tag-names": "off"
+    "jsdoc/check-tag-names": "off",
+    "no-trailing-spaces": [1, {
+      // 尾部空行
+      "skipBlankLines": false,
+      // 注释空行校验
+      "ignoreComments": false
+    }]
   }
 }
