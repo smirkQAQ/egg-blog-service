@@ -1,4 +1,5 @@
 import { EggPlugin } from 'egg';
+import 'tsconfig-paths/register';// @路劲别名配置详情查看https://www.eggjs.org/zh-CN/tutorials/typescript
 
 const plugin: EggPlugin = {
   // static: true,
