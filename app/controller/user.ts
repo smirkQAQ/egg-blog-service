@@ -4,7 +4,7 @@
  * @Description:
  */
 import BaseController from '@/lib/base-controller';
-import {GET, POST, RequestMapping} from "@/lib/add-router";
+import { GET, POST, RequestMapping } from '@/lib/add-router';
 import auth from '@/lib/auth';
 
 @RequestMapping('/api/user')
@@ -78,7 +78,7 @@ export default class UserController extends BaseController {
     }
   }
 
-  @GET('/getUserList')
+  @GET('/userList')
   async userList() {
     try {
       const { ctx, service } = this;
@@ -94,6 +94,7 @@ export default class UserController extends BaseController {
   }
 
   @GET('/account')
+  @auth
   async account() {
     try {
       const { ctx, service } = this;

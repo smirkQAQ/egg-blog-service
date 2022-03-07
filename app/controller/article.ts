@@ -5,9 +5,9 @@
  */
 
 import BaseController from '@/lib/base-controller';
-import { GET, RequestMapping } from "@/lib/add-router";
+import { GET, RequestMapping } from '@/lib/add-router';
 
-@RequestMapping('/article')
+@RequestMapping('/api/article')
 export default class ArticleController extends BaseController {
   @GET('/articleList')
   async articles() {

@@ -5,7 +5,7 @@
  */
 
 import * as crypto from 'crypto';
-import jwt from 'jsonwebtoken';
+import { sign } from 'jsonwebtoken';
 
 export default {
   /**
@@ -16,7 +16,7 @@ export default {
    * @2022/1/7 14:25
    */
   getToken(data, expires = 7200) {
-    return jwt.sign({
+    return sign({
       ...data,
       exp: Math.floor(Date.now() / 1000) + expires,
     }, '9527');

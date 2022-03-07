@@ -128,7 +128,7 @@ export default class ArticleService extends Service {
       },
       {
         where: { id },
-      }
+      },
     );
   }
 
@@ -140,7 +140,7 @@ export default class ArticleService extends Service {
       },
       {
         where: { id },
-      }
+      },
     );
   }
 }

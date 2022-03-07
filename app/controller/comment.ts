@@ -5,12 +5,12 @@
  */
 
 import BaseController from '@/lib/base-controller';
-import {DEL, GET, POST, RequestMapping} from "@/lib/add-router";
+import { GET, POST, RequestMapping } from '@/lib/add-router';
 import auth from '@/lib/auth';
 
-@RequestMapping('/comment')
+@RequestMapping('/api/comment')
 export default class CommentController extends BaseController {
-  @POST('/comments')
+  @GET('/comments')
   @auth
   async comments() {
     const { ctx, service } = this;
@@ -59,7 +59,7 @@ export default class CommentController extends BaseController {
       this.fail(err);
     }
   }
-  @DEL('/deleteComment')
+  @GET('/deleteComment')
   async deleteComment() {
     const { ctx, service } = this;
     try {

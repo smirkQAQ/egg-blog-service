@@ -4,14 +4,14 @@
  * @Description:
  */
 import install from '../lib/add-router/install';
-import jwt from 'jsonwebtoken';
+import { verify } from 'jsonwebtoken';
 
 import { Context } from 'egg';
 // 解密，验证
 function verifyToken(token: string): any {
   let res = '';
   try {
-    const result = jwt.verify(token, '9527') || {};
+    const result = verify(token, '9527') || {};
     const { exp } = result,
       current = Math.floor(Date.now() / 1000);
     if (current <= exp) res = result || {};
@@ -33,6 +33,7 @@ export default (target: any, value?: any | undefined) => {
         const redis_token = await ctx.app.redis.get(uid + email); // 获取保存的token
         if (!redis_token) {
           ctx.body = { status: 413, message: '无权限' };
+          return;
         }
         if (authToken === redis_token) {
           ctx.locals.uid = uid;

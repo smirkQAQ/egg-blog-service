@@ -4,7 +4,7 @@
  * @Description:
  */
 import BaseController from '@/lib/base-controller';
-import { POST, RequestMapping } from "@/lib/add-router";
+import { POST, RequestMapping } from '@/lib/add-router';
 import auth from '@/lib/auth';
 
 @RequestMapping('/upload')

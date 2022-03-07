@@ -75,8 +75,7 @@ export default class UserService extends Service {
       },
       {
         where: { id },
-      }
-
+      },
     );
   }
 }

@@ -66,7 +66,7 @@ export default class CommentService extends Service {
       },
       {
         where: { id },
-      }
+      },
     );
   }
 
@@ -77,7 +77,7 @@ export default class CommentService extends Service {
       },
       {
         where: { id },
-      }
+      },
     );
   }
 }

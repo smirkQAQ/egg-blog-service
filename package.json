@@ -5,12 +5,11 @@
   "private": true,
   "egg": {
     "typescript": true,
-    "declarations": true,
-    "tscompiler": "ts-node/register/transpile-only"
+    "declarations": true
   },
   "scripts": {
-    "start": "egg-scripts start --daemon --title=egg-server-teggtest",
-    "stop": "egg-scripts stop --title=egg-server-teggtest",
+    "start": "egg-scripts start --daemon --title=egg-blog-server-ts",
+    "stop": "egg-scripts stop --title=egg-blog-server-ts",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug TS_NODE_TRANSPILE_ONLY=true",
     "test-local": "egg-bin test",
@@ -53,6 +52,7 @@
     "egg-mock": "^3.16.0",
     "eslint": "^6.7.2",
     "eslint-config-egg": "^8.0.0",
+    "sequelize-cli": "^6.4.1",
     "ts-node": "^7.0.1",
     "tslib": "^1.9.0",
     "typescript": "^3.0.0"

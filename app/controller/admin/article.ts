@@ -5,8 +5,8 @@
  */
 
 import BaseController from '@/lib/base-controller';
-import { DEL, POST, RequestMapping } from "@/lib/add-router";
-import auth from "@/lib/auth";
+import { DEL, POST, RequestMapping } from '@/lib/add-router';
+import auth from '@/lib/auth';
 
 @RequestMapping('/admin')
 @auth
