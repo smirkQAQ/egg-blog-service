@@ -14,7 +14,6 @@ run/
 *.lock
 *.js
 !.autod.conf.js
-!app/database/*.js
 
 app/**/*.js
 test/**/*.js
@@ -23,9 +22,9 @@ app/**/*.map
 test/**/*.map
 config/**/*.map
 
-typings/app
-typings/config
 config/config.local.ts
 config/config.prod.ts
 database/config.json
 httpskey/
+!app/database/*.js
+

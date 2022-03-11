@@ -93,7 +93,7 @@ export default (appInfo: EggAppInfo) => {
     port: 3306,
     database: 'blog_test',
     timezone: '+08:00', // 东八时区
-    username: '',
+    username: 'root',
     password: '',
   };
 

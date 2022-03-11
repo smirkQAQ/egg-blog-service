@@ -11,6 +11,7 @@ import * as fs from 'fs';
 export default class UploadService extends Service {
   async upload({ filename: fileName, filepath: filePath }) {
     const { Region, Bucket, folder } = this.config.txcos;
+    // 生成可读流
     const stream = fs.createReadStream(filePath);
     return new Promise((resolve, reject) => {
       this.app.cos.putObject({
