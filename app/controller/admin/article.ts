@@ -7,8 +7,9 @@
 import BaseController from '@/lib/base-controller';
 import { DEL, POST, RequestMapping } from '@/lib/add-router';
 import auth from '@/lib/auth';
+import transaction from "@/lib/transaction";
 
-@RequestMapping('/admin')
+@RequestMapping('/api/admin')
 @auth
 export default class AdminArticleController extends BaseController {
   @DEL('/deleteArticle')
@@ -27,6 +28,7 @@ export default class AdminArticleController extends BaseController {
   }
 
   @POST('/saveArticle')
+  @transaction
   async saveArticle() {
     const { ctx, service } = this;
     ctx.validate({
